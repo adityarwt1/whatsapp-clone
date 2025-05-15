@@ -29,3 +29,33 @@ export async function getUser() {
     }
 
 }
+
+
+export async function updateProfile(id: number, name: string, status: string) {
+
+    try {
+        const user = await getUser()
+
+        const updateduser = await prisma.user.update({
+            where: { id: user?.id },
+            data: {
+                firstName: name,
+                status: status
+            }
+        })
+
+
+        if (!updateduser) {
+            return null
+        }
+
+        return updateProfile
+    }
+    catch {
+        console.log("this is the updated user")
+        return null
+    }
+
+
+
+}

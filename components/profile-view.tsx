@@ -1,4 +1,4 @@
-
+"use client"
 import { ArrowLeft, Camera, Edit } from "lucide-react"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarImage, AvatarFallback } from "@/components/ui/avatar"
@@ -8,31 +8,28 @@ import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link"
 import { getSession, logout } from "@/actions/auth-actions"
 import { PrismaClient } from "@/app/generated/prisma"
-import React from "react"
-
-const prisma = new PrismaClient()
-
-export async function ProfileView() {
+import React, { useEffect, useState } from "react"
+import { getUser } from "@/actions/my-action"
 
 
+export function ProfileView() {
 
+  const [userInfo, setUserInfo] = useState({})
 
-  const session = await getSession()
+  const fetchUserInfo = async () => {
+    const userInfo = await getUser()
+    console.log(userInfo)
 
-  const searchUser = await prisma.session.findUnique({
-    where: {
-      token: session?.token
+    if (userInfo) {
+      setUserInfo(userInfo)
     }
 
-  })
 
-  const userInfo = await prisma.user.findUnique({
-    where: {
-      id: searchUser?.userId
-    }
-  })
+  }
 
-  console.log("user info ", userInfo)
+  useEffect(() => {
+    fetchUserInfo()
+  }, [userInfo])
 
   return (
     <div className="flex flex-col h-full bg-[#111b21]">
@@ -71,12 +68,10 @@ export async function ProfileView() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-xs text-[#8696a0] font-medium">Your name</label>
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-[#00a884]">
-                  <Edit className="w-4 h-4 mr-1" />
-                  Edit
-                </Button>
+
               </div>
               <Input
+
                 defaultValue="John Doe"
                 className="bg-[#2a3942] border-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0"
               />
@@ -95,9 +90,7 @@ export async function ProfileView() {
                   defaultValue={userInfo?.status}
                   className="bg-[#2a3942] border-0 text-white resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-[#00a884] ml-2">
-                  <Edit className="w-4 h-4" />
-                </Button>
+
               </div>
             </div>
 
@@ -115,8 +108,8 @@ export async function ProfileView() {
             <Button onClick={logout} variant="destructive" className="w-full mx-1 bg-red-600 hover:bg-red-700 text-white">
               Log out
             </Button>
-            <Button variant="destructive" className="w-full mx-1 bg-red-600 hover:bg-red-700 text-white">
-              Log out
+            <Button variant="destructive" className="w-full mx-1 bg-[#00A884]  hover:bg-[#00a884]/90  text-white">
+              Update
             </Button>
           </div>
         </div>
