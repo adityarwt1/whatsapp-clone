@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
       redirect("/login");
     }
     const { users } = await req.json();
+    console.log(users);
 
     const chat = await prisma.chat.create({
       data: {
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
         isGroup: false,
         createdAt: new Date(),
         createdBy: user?.id,
-        picture: users.profilePicture,
+        picture: users?.profilePicture,
       },
     });
 

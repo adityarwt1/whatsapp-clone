@@ -24,15 +24,11 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [toggle, setToggle] = useState(false);
 
-  const filteredChats = mockChats.filter((chat: any) =>
-    chat.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const openAddOption = () => {};
 
   return (
     <div className="w-[400px] border-r border-[#313d45] flex flex-col">
-      <div className="flex iltems-center justify-between p-4">
+      <div className="flex items-center justify-between p-4">
         <h1 className="text-xl font-semibold">Chats</h1>
         <div className="flex gap-2">
           <Link
@@ -63,8 +59,8 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {filteredChats.length > 0 ? (
-          filteredChats.map((chat) => (
+        {mockChats.length > 0 ? (
+          mockChats.map((chat: any) => (
             <div
               key={chat.id}
               className={cn(
@@ -78,7 +74,7 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
                   src={chat.avatar || "/placeholder.svg"}
                   alt={chat.name}
                 />
-                <AvatarFallback>{chat.name.substring(0, 2)}</AvatarFallback>
+                <AvatarFallback>{chat.name}</AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between items-center">
