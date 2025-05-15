@@ -8,28 +8,49 @@ import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link"
 import { getSession, logout } from "@/actions/auth-actions"
 import { PrismaClient } from "@/app/generated/prisma"
-import React, { useEffect, useState } from "react"
-import { getUser } from "@/actions/my-action"
+import { getUser, updateProfile } from "@/actions/my-action"
+import { useEffect, useState } from "react"
 
 
 export function ProfileView() {
+  const [userInfo, setUserInfo] = useState({});
+  const [name, setName] = useState("")
+  const [status, setStatus] = useState("")
 
-  const [userInfo, setUserInfo] = useState({})
+  const fetchUser = async () => {
+    const response = await fetch("/api/fetchuser", {
+      method: "GET"
+    })
 
-  const fetchUserInfo = async () => {
-    const userInfo = await getUser()
-    console.log(userInfo)
+    const data = await response.json()
 
-    if (userInfo) {
-      setUserInfo(userInfo)
+    if (response.ok) {
+      console.log("user information goes here", data.user)
+      setUserInfo(data.user)
     }
-
-
   }
 
   useEffect(() => {
-    fetchUserInfo()
-  }, [userInfo])
+    fetchUser()
+  }, [])
+
+  const updateUser = async () => {
+    try {
+      const response = await fetch(`/api/update?name=${name || userInfo.firstName}&status=${status || userInfo.status}&id=${userInfo.id}`, {
+        method: "POST"
+      })
+
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setUserInfo(data.user)
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="flex flex-col h-full bg-[#111b21]">
@@ -71,8 +92,8 @@ export function ProfileView() {
 
               </div>
               <Input
-
-                defaultValue="John Doe"
+                defaultValue={userInfo?.firstName}
+                onChange={(e) => setName(e.target.value)}
                 className="bg-[#2a3942] border-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0"
               />
             </div>
@@ -88,6 +109,7 @@ export function ProfileView() {
               <div className="flex items-center">
                 <Textarea
                   defaultValue={userInfo?.status}
+                  onChange={(e) => setStatus(e.target.value)}
                   className="bg-[#2a3942] border-0 text-white resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
 
@@ -98,6 +120,7 @@ export function ProfileView() {
               <label className="text-xs text-[#8696a0] font-medium">Phone number</label>
               <Input
                 defaultValue={userInfo?.phoneNumber}
+
                 disabled
                 className="bg-[#2a3942] border-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0 opacity-70"
               />
@@ -108,7 +131,7 @@ export function ProfileView() {
             <Button onClick={logout} variant="destructive" className="w-full mx-1 bg-red-600 hover:bg-red-700 text-white">
               Log out
             </Button>
-            <Button variant="destructive" className="w-full mx-1 bg-[#00A884]  hover:bg-[#00a884]/90  text-white">
+            <Button variant="destructive" onClick={updateUser} className="w-full mx-1 bg-[#00A884]  hover:bg-[#00a884]/90  text-white">
               Update
             </Button>
           </div>
