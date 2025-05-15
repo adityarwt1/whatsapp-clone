@@ -1,5 +1,8 @@
 "use client";
 
+import { Plus } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -62,6 +65,24 @@ export default function SearchPage() {
     return () => clearTimeout(timeOut);
   }, [query]);
 
+  const handleAdd = async () => {
+    try {
+      const response = await fetch("/api/addchat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ users }),
+      });
+
+      if (response.ok) {
+        redirect("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-black-100 p-4 w-full">
       {/* Search Bar at Top */}
@@ -115,6 +136,12 @@ export default function SearchPage() {
                       <p className="text-sm text-gray-500 mt-1">{user.bio}</p>
                     )}
                   </div>
+                  <button
+                    className="text-black bg-[#00A884] "
+                    onClick={handleAdd}
+                  >
+                    <Plus className="text-white" />
+                  </button>
                 </div>
               </div>
             ))}

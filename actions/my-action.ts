@@ -62,7 +62,7 @@ export async function getUserChat() {
 
     const ChatBasedOnuser = await prisma.chat.findMany({
       where: {
-        id: user?.userId,
+        createdBy: user?.id,
       },
     });
 
