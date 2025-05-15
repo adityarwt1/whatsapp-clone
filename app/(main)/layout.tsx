@@ -8,7 +8,7 @@ export default function MainLayout({
 }) {
   return (
     <div className="flex h-screen bg-[#111b21] text-white">
-      <Sidebar />
+
       <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   )

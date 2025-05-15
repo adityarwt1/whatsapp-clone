@@ -38,14 +38,14 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
       <div className="flex iltems-center justify-between p-4">
         <h1 className="text-xl font-semibold">Chats</h1>
         <div className="flex gap-2">
-          <Button
+          <Link
+            href={`/add`}
+
             onClick={openAddOption}
-            variant="ghost"
-            size="icon"
-            className="rounded-full text-[#aebac1] hover:text-white hover:bg-[#313d45]"
+            className="rounded-full text-[#aebac1] hover:text-white hover:bg-[#313d45] flex items-center justify-center p-2"
           >
             <Plus className="w-5 h-5" />
-          </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
@@ -88,7 +88,7 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
               <p className="text-sm text-[#8696a0] truncate">{chat.lastMessage}</p>
             </div>
           </div>
-        )) : (<div><Link href={`/add`} className=" text-center">Add chat </Link></div>)}
+        )) : (<div className="text-center items-center flex w-full justify-center"><Link href={`/add`} className=" text-center m-4 bg-slate-600 p-4 flex rounded-md "><Plus className="mx-2" /> Add chat </Link></div>)}
       </div>
     </div>
   )
