@@ -1,0 +1,227 @@
+// Prisma schema for WhatsApp Clone
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ChatMemberRole {
+  MEMBER
+  ADMIN
+  OWNER
+}
+
+enum CallType {
+  VOICE
+  VIDEO
+}
+
+enum CallStatus {
+  ONGOING
+  COMPLETED
+  MISSED
+  REJECTED
+}
+
+enum CallParticipantStatus {
+  JOINED
+  LEFT
+  MISSED
+  REJECTED
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  phoneNumber    String    @unique
+  email          String?   @unique
+  firstName      String?
+  lastName       String?
+  bio            String?
+  profilePicture String?
+  status         String    @default("Hey there! I am using WhatsApp")
+  lastSeen       DateTime?
+  isOnline       Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relationships
+  sessions        Session[]
+  contacts        Contact[]         @relation("UserContacts")
+  blockedUsers    BlockedUser[]     @relation("UserBlocking")
+  blockedBy       BlockedUser[]     @relation("UserBlocked")
+  chats           ChatMember[]
+  messages        Message[]
+  calls           Call[]
+  statusUpdates   StatusUpdate[]
+  statusViews     StatusView[]
+  Contact         Contact[]
+  Chat            Chat[]
+  ReadReceipt     ReadReceipt[]
+  Reaction        Reaction[]
+  CallParticipant CallParticipant[]
+
+  @@index([phoneNumber])
+  @@index([isOnline])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  token      String   @unique
+  deviceInfo String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  isActive   Boolean  @default(true)
+
+  @@index([userId])
+}
+
+model Contact {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation("UserContacts", fields: [userId], references: [id])
+  contactId  Int
+  contact    User     @relation(fields: [contactId], references: [id])
+  name       String?
+  isFavorite Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, contactId])
+}
+
+model BlockedUser {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation("UserBlocking", fields: [userId], references: [id])
+  blockedId   Int
+  blockedUser User     @relation("UserBlocked", fields: [blockedId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, blockedId])
+}
+
+model Chat {
+  id          Int          @id @default(autoincrement())
+  name        String?
+  description String?
+  isGroup     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  createdBy   Int?
+  creator     User?        @relation(fields: [createdBy], references: [id])
+  picture     String?
+  members     ChatMember[]
+  messages    Message[]
+  calls       Call[]
+}
+
+model ChatMember {
+  id         Int            @id @default(autoincrement())
+  chatId     Int
+  chat       Chat           @relation(fields: [chatId], references: [id])
+  userId     Int
+  user       User           @relation(fields: [userId], references: [id])
+  joinedAt   DateTime       @default(now())
+  role       ChatMemberRole @default(MEMBER)
+  lastReadAt DateTime?
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        Int           @id @default(autoincrement())
+  chatId    Int
+  chat      Chat          @relation(fields: [chatId], references: [id])
+  senderId  Int
+  sender    User          @relation(fields: [senderId], references: [id])
+  content   String
+  mediaUrl  String?
+  mediaType String? // IMAGE, VIDEO, AUDIO, DOCUMENT
+  isDeleted Boolean       @default(false)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  replyToId Int?
+  replyTo   Message?      @relation("MessageReplies", fields: [replyToId], references: [id])
+  replies   Message[]     @relation("MessageReplies")
+  readBy    ReadReceipt[]
+  reactions Reaction[]
+}
+
+model ReadReceipt {
+  id        Int      @id @default(autoincrement())
+  messageId Int
+  message   Message  @relation(fields: [messageId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  readAt    DateTime @default(now())
+
+  @@unique([messageId, userId])
+}
+
+model Reaction {
+  id        Int      @id @default(autoincrement())
+  messageId Int
+  message   Message  @relation(fields: [messageId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  emoji     String
+  createdAt DateTime @default(now())
+
+  @@unique([messageId, userId])
+}
+
+model Call {
+  id           Int               @id @default(autoincrement())
+  chatId       Int
+  chat         Chat              @relation(fields: [chatId], references: [id])
+  callerId     Int
+  caller       User              @relation(fields: [callerId], references: [id])
+  type         CallType          @default(VOICE)
+  status       CallStatus        @default(ONGOING)
+  startedAt    DateTime          @default(now())
+  endedAt      DateTime?
+  participants CallParticipant[]
+}
+
+model CallParticipant {
+  id       Int                   @id @default(autoincrement())
+  callId   Int
+  call     Call                  @relation(fields: [callId], references: [id])
+  userId   Int
+  user     User                  @relation(fields: [userId], references: [id])
+  joinedAt DateTime              @default(now())
+  leftAt   DateTime?
+  status   CallParticipantStatus @default(JOINED)
+
+  @@unique([callId, userId])
+}
+
+model StatusUpdate {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  content   String?
+  mediaUrl  String?
+  isViewed  Boolean      @default(false)
+  createdAt DateTime     @default(now())
+  expiresAt DateTime
+  views     StatusView[]
+}
+
+model StatusView {
+  id       Int          @id @default(autoincrement())
+  statusId Int
+  status   StatusUpdate @relation(fields: [statusId], references: [id])
+  viewerId Int
+  viewer   User         @relation(fields: [viewerId], references: [id])
+  viewedAt DateTime     @default(now())
+
+  @@unique([statusId, viewerId])
+}
