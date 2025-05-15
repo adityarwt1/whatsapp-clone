@@ -51,7 +51,8 @@ export async function login(formData: FormData) {
     })
 
     // Set cookie
-    cookies().set("session_token", token, {
+    const cookieStore = await cookies()
+    cookieStore.set("session_token", token, {
       httpOnly: true,
       expires: expiresAt,
       path: "/",
@@ -67,7 +68,7 @@ export async function login(formData: FormData) {
 }
 
 export async function logout() {
-  const sessionToken = cookies().get("session_token")?.value
+  const sessionToken = (await cookies()).get("session_token")?.value
 
   if (sessionToken) {
     try {
@@ -80,12 +81,12 @@ export async function logout() {
     }
   }
 
-  cookies().delete("session_token")
+  (await cookies()).delete("session_token")
   redirect("/login")
 }
 
 export async function getSession() {
-  const sessionToken = cookies().get("session_token")?.value
+  const sessionToken = (await cookies()).get("session_token")?.value
 
   if (!sessionToken) {
     return null
@@ -98,7 +99,7 @@ export async function getSession() {
     })
 
     if (!session || !session.isActive || session.expiresAt < new Date()) {
-      cookies().delete("session_token")
+      (await cookies()).delete("session_token")
       return null
     }
 
