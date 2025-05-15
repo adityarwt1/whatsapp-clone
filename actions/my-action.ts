@@ -1,5 +1,6 @@
 import { PrismaClient } from "@/app/generated/prisma"
 import { getSession } from "./auth-actions"
+import { redirect } from "next/navigation"
 
 const prisma = new PrismaClient()
 
@@ -57,5 +58,34 @@ export async function updateProfile(id: number, name: string, status: string) {
     }
 
 
+
+}
+
+
+export async function getUserChat() {
+
+    try {
+
+        const user = await getUser()
+
+        if (!user) {
+            redirect("/login")
+        }
+
+        const ChatBasedOnuser = await prisma.chat.findMany({
+            where: {
+                id: user?.userId
+            }
+        })
+
+        if (!ChatBasedOnuser) {
+            return null
+        }
+
+        return ChatBasedOnuser
+    } catch (error) {
+        console.log(error)
+        return null
+    }
 
 }
