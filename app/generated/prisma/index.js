@@ -302,7 +302,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
@@ -316,7 +316,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYWVhMDY1ZjctYjFiMi00NDNlLWJjZGYtM2JkM2UwMmJjMDM1IiwidGVuYW50X2lkIjoiNGFiY2VlZjg4M2ZiMTgxMjk5ZTk2YThjNDAxNmI1YTQwMzVmMGE3NTkzNDNjNDM0YzlmMjgyN2MwMDY4ZmNmYyIsImludGVybmFsX3NlY3JldCI6IjFkYWVhMGI0LWRkMjMtNDQ4YS05MmYwLWNjYWZhM2YyMGVkNyJ9.OCFM3-J9PS52HORaE-kNaq0r7RYEIKqWgvIAvL5uDq0"
+        "value": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMTQ5OTlmNmItNjkxYS00NTg5LTlkMWItMmVkYjc0NmU4MWRjIiwidGVuYW50X2lkIjoiMTU1Njc2ZDM2OTI0YWZkOTdiM2ZhYTI3ODE1OTAzYjI3Y2MxZmNmYjI1ZjhmODUxZjk2ZTA1YWZlNjc5Nzg1ZCIsImludGVybmFsX3NlY3JldCI6ImE3ZjZjMGNlLTIwMGMtNDM0OC04N2M4LWU5Yzc4OWFjMWZkYSJ9.AfF4_lkOKF8-7TN0M2dk5HOOGOpGH9p0h6JXVO1Pi78"
       }
     }
   },

@@ -1,9 +1,13 @@
 "use server"
 
-import { prisma } from "@/lib/db"
+import { PrismaClient } from "@/app/generated/prisma"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
+
+const prisma = new PrismaClient()
+
+
 
 export async function login(formData: FormData) {
   const phoneNumber = formData.get("phoneNumber") as string
