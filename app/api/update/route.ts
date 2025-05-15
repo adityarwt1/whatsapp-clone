@@ -9,6 +9,8 @@ export async function POST(req: NextRequest) {
 
         const searchParams = req.nextUrl.searchParams;
 
+        const imageUrl = await req.json()
+
         const id = searchParams.get("id")
         const name = searchParams.get("name");
         const status = searchParams.get("status") || ""
@@ -23,7 +25,8 @@ export async function POST(req: NextRequest) {
             },
             data: {
                 firstName: name,
-                status: status
+                status: status,
+                profilePicture: imageUrl
             }
         })
 

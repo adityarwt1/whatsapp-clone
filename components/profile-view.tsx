@@ -10,12 +10,14 @@ import { getSession, logout } from "@/actions/auth-actions"
 import { PrismaClient } from "@/app/generated/prisma"
 import { getUser, updateProfile } from "@/actions/my-action"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 
 export function ProfileView() {
   const [userInfo, setUserInfo] = useState({});
   const [name, setName] = useState("")
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState("");
+  const [imageUrl, setImageUrl] = useState(userInfo.profilePicture)
 
   const fetchUser = async () => {
     const response = await fetch("/api/fetchuser", {
@@ -25,7 +27,7 @@ export function ProfileView() {
     const data = await response.json()
 
     if (response.ok) {
-      console.log("user information goes here", data.user)
+      console.log("user information goes here")
       setUserInfo(data.user)
     }
   }
@@ -37,7 +39,13 @@ export function ProfileView() {
   const updateUser = async () => {
     try {
       const response = await fetch(`/api/update?name=${name || userInfo.firstName}&status=${status || userInfo.status}&id=${userInfo.id}`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+
+        },
+
+        body: JSON.stringify(imageUrl)
       })
 
 
@@ -49,6 +57,36 @@ export function ProfileView() {
     }
     catch (error) {
       console.log(error)
+    }
+  }
+
+  const fileBase64 = async (file: any) => {
+
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader;
+
+      reader.onload = () => resolve(reader.result)
+
+      reader.onerror = (error) => reject(error)
+
+      reader.readAsDataURL(file)
+
+
+
+    })
+
+  }
+
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const url = await fileBase64(file)
+      setImageUrl(url as string)
+    }
+
+    else {
+      console.log("provide file first")
     }
   }
 
@@ -71,17 +109,14 @@ export function ProfileView() {
         <div className="max-w-md mx-auto space-y-8">
           <div className="flex flex-col items-center">
             <div className="relative mb-4">
-              <Avatar className="w-40 h-40">
-                <AvatarImage src="/placeholder.svg?height=160&width=160" alt="Profile" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <Button
-                variant="outline"
-                size="icon"
-                className="absolute bottom-0 right-0 rounded-full bg-[#00a884] border-0 text-white hover:bg-[#00a884]/90 w-10 h-10"
+              <Image src={userInfo.profilePicture} width={100} height={100} className="rounded-full" alt="profile" />
+              <label
+                htmlFor="profile"
+                className="absolute bottom-0 flex items-center justify-center right-0 rounded-full bg-[#00a884] border-0 text-white hover:bg-[#00a884]/90 w-10 h-10"
               >
-                <Camera className="w-5 h-5" />
-              </Button>
+                <Edit className="w-5 h-5" />
+              </label>
+              <input type="file" name="profile" id="profile" accept="image/*" className="hidden" onChange={handleImage} />
             </div>
           </div>
 
