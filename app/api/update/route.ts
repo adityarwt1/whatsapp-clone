@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
         const searchParams = req.nextUrl.searchParams;
 
-        const imageUrl = await req.json()
+        const { imageUrl } = await req.json()
 
         const id = searchParams.get("id")
         const name = searchParams.get("name");
