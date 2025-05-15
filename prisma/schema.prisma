@@ -78,7 +78,7 @@ model Session {
   ipAddress  String?
   createdAt  DateTime @default(now())
   expiresAt  DateTime
-  isActive   Boolean  @default(true)
+  isActive   Boolean  @default(false)
 
   @@index([userId])
 }

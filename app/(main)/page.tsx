@@ -22,6 +22,16 @@ export default async function ChatsPage() {
       token
     }
   })
+
+  const isActive = await prisma.session.update({
+    where: { token },
+    data: {
+      isActive:
+        true
+    }
+  })
+
+
   console.log("session of the user", user)
 
   const ChatBasedOnuser = await prisma.chat.findMany({

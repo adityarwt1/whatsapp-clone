@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { PrismaClient } from "@/app/generated/prisma"
+import Link from "next/link"
 
 type ChatItem = {
   id: number
@@ -24,15 +25,21 @@ type ChatItem = {
 const ChatList = ({ mockChats }: { mockChats: any }) => {
   const [selectedChat, setSelectedChat] = useState<number | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
+  const [toggle, setToggle] = useState(false)
 
   const filteredChats = mockChats.filter((chat: any) => chat.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
+  const openAddOption = () => {
+
+  }
+
   return (
     <div className="w-[400px] border-r border-[#313d45] flex flex-col">
-      <div className="flex items-center justify-between p-4">
+      <div className="flex iltems-center justify-between p-4">
         <h1 className="text-xl font-semibold">Chats</h1>
         <div className="flex gap-2">
           <Button
+            onClick={openAddOption}
             variant="ghost"
             size="icon"
             className="rounded-full text-[#aebac1] hover:text-white hover:bg-[#313d45]"
@@ -60,7 +67,7 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {filteredChats.map((chat) => (
+        {filteredChats.length > 0 ? filteredChats.map((chat) => (
           <div
             key={chat.id}
             className={cn(
@@ -81,7 +88,7 @@ const ChatList = ({ mockChats }: { mockChats: any }) => {
               <p className="text-sm text-[#8696a0] truncate">{chat.lastMessage}</p>
             </div>
           </div>
-        ))}
+        )) : (<div><Link href={`/add`} className=" text-center">Add chat </Link></div>)}
       </div>
     </div>
   )
