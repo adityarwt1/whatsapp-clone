@@ -28,8 +28,8 @@ export async function login(formData: FormData) {
       user = await prisma.user.create({
         data: {
           phoneNumber,
-          firstName: "User",
-          lastName: String(Math.floor(Math.random() * 1000)),
+          firstName: "",
+          lastName: "",
         },
       })
     }

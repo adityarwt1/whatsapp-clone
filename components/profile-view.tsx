@@ -1,3 +1,4 @@
+
 import { ArrowLeft, Camera, Edit } from "lucide-react"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarImage, AvatarFallback } from "@/components/ui/avatar"
@@ -5,8 +6,34 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link"
+import { getSession, logout } from "@/actions/auth-actions"
+import { PrismaClient } from "@/app/generated/prisma"
+import React from "react"
 
-export function ProfileView() {
+const prisma = new PrismaClient()
+
+export async function ProfileView() {
+
+
+
+
+  const session = await getSession()
+
+  const searchUser = await prisma.session.findUnique({
+    where: {
+      token: session?.token
+    }
+
+  })
+
+  const userInfo = await prisma.user.findUnique({
+    where: {
+      id: searchUser?.userId
+    }
+  })
+
+  console.log("user info ", userInfo)
+
   return (
     <div className="flex flex-col h-full bg-[#111b21]">
       <div className="flex items-center p-4 border-b border-[#313d45]">
@@ -65,7 +92,7 @@ export function ProfileView() {
               <label className="text-xs text-[#8696a0] font-medium">About</label>
               <div className="flex items-center">
                 <Textarea
-                  defaultValue="Hey there! I am using WhatsApp"
+                  defaultValue={userInfo?.status}
                   className="bg-[#2a3942] border-0 text-white resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-[#00a884] ml-2">
@@ -77,15 +104,18 @@ export function ProfileView() {
             <div className="space-y-2">
               <label className="text-xs text-[#8696a0] font-medium">Phone number</label>
               <Input
-                defaultValue="+1 234 567 890"
+                defaultValue={userInfo?.phoneNumber}
                 disabled
                 className="bg-[#2a3942] border-0 text-white focus-visible:ring-0 focus-visible:ring-offset-0 opacity-70"
               />
             </div>
           </div>
 
-          <div className="pt-4">
-            <Button variant="destructive" className="w-full bg-red-600 hover:bg-red-700 text-white">
+          <div className="pt-4 flex ">
+            <Button onClick={logout} variant="destructive" className="w-full mx-1 bg-red-600 hover:bg-red-700 text-white">
+              Log out
+            </Button>
+            <Button variant="destructive" className="w-full mx-1 bg-red-600 hover:bg-red-700 text-white">
               Log out
             </Button>
           </div>

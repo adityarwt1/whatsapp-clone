@@ -1,9 +1,11 @@
 "use server"
 
-import { prisma } from "@/lib/db"
 import { getSession } from "./auth-actions"
 import { revalidatePath } from "next/cache"
-import type { CallType } from "@prisma/client"
+import { type CallType } from "@prisma/client"
+import { PrismaClient } from "@/app/generated/prisma"
+
+const prisma = new PrismaClient()
 
 export async function initiateCall(chatId: number, type: CallType = "VOICE") {
   const session = await getSession()

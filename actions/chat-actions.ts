@@ -1,8 +1,9 @@
 "use server"
-
-import { prisma } from "@/lib/db"
 import { getSession } from "./auth-actions"
 import { revalidatePath } from "next/cache"
+
+
+
 
 export async function getChats() {
   const session = await getSession()

@@ -1,8 +1,10 @@
 "use server"
 
-import { prisma } from "@/lib/db"
+import { PrismaClient } from "@/app/generated/prisma"
 import { getSession } from "./auth-actions"
 import { revalidatePath } from "next/cache"
+
+const prisma = new PrismaClient()
 
 export async function createStatusUpdate(content?: string, mediaUrl?: string) {
   const session = await getSession()
