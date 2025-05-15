@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Search, Plus, FilterIcon } from "lucide-react"
 import { Avatar } from "@/components/ui/avatar"
 import { AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { PrismaClient } from "@/app/generated/prisma"
 
 type ChatItem = {
   id: number
@@ -17,70 +18,14 @@ type ChatItem = {
   avatar?: string
 }
 
-const mockChats: ChatItem[] = [
-  {
-    id: 1,
-    name: "Full Stack Developer",
-    lastMessage: "Your: https://www.instagram.com...",
-    time: "12-05-2025",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 2,
-    name: "47 S-DigiLEP C10C Ex.No.1",
-    lastMessage: "Manindra Namdeo: Security subject...",
-    time: "04-03-2025",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 3,
-    name: "DSA",
-    lastMessage: "Your: https://www.instagram.com/...",
-    time: "09:37",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 4,
-    name: "Code jobs",
-    lastMessage: "Your: https://drive.google.com/file...",
-    time: "09:36",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 5,
-    name: "Shivendra Saket",
-    lastMessage: "Sticker",
-    time: "09:26",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 6,
-    name: "10th C Shivendra Mauhariya",
-    lastMessage: "thik hai chalo",
-    time: "Yesterday",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: 7,
-    name: "Mahendra",
-    lastMessage: "Ha thik hai",
-    time: "Yesterday",
-    unread: 0,
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-]
 
-export function ChatList() {
+
+
+const ChatList = ({ mockChats }: { mockChats: any }) => {
   const [selectedChat, setSelectedChat] = useState<number | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
 
-  const filteredChats = mockChats.filter((chat) => chat.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredChats = mockChats.filter((chat: any) => chat.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
   return (
     <div className="w-[400px] border-r border-[#313d45] flex flex-col">
@@ -141,3 +86,6 @@ export function ChatList() {
     </div>
   )
 }
+export default ChatList
+
+
