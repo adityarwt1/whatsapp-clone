@@ -35,117 +35,44 @@ enum CallParticipantStatus {
   REJECTED
 }
 
-  
+// model User {
+//   id              Int             @id @default(autoincrement())
+//   // Add other user fields as needed, for example:
+//   name            String?
+//   email           String?         @unique
+//   phone           String?         @unique
+//   password        String?
+//   profilePicture  String?
+//   lastSeen        DateTime?
+//   createdAt       DateTime        @default(now())
+//   updatedAt       DateTime        @updatedAt
 
-model User {
-  id              Int             @id @default(autoincrement())
-  // Add other user fields as needed, for example:
-  name            String?
-  email           String?         @unique
-  phone           String?         @unique
-  password        String?
-  profilePicture  String?
-  lastSeen        DateTime?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  
-  // Add relations based on your existing schema
-  sessions       Session[]
-  contacts       Contact[]        @relation("UserContacts")
-  blockedUsers   BlockedUser[]    @relation("UserBlocking")
-  blockedBy      BlockedUser[]    @relation("UserBlocked")
-  createdChats   Chat[]           @relation("Creator")
-  chatMembers    ChatMember[]
-  sentMessages   Message[]
-  readReceipts   ReadReceipt[]
-  reactions      Reaction[]
-  calls          Call[]
-  callParticipants CallParticipant[]
-  statusUpdates  StatusUpdate[]
-  statusViews    StatusView[]
-}
-model Session {
-  id         String   @id @default(cuid())
-  userId     Int
-  user       User?     @relation(fields: [userId], references: [id])
-  token      String   @unique
-  deviceInfo String?
-  ipAddress  String?
-  createdAt  DateTime @default(now())
-  expiresAt  DateTime
-  isActive   Boolean  @default(false)
-
-  @@index([userId])
-}
+//   // Add relations based on your existing schema
+//   sessions       Session[]
+//   contacts       Contact[]        @relation("UserContacts")
+//   blockedUsers   BlockedUser[]    @relation("UserBlocking")
+//   blockedBy      BlockedUser[]    @relation("UserBlocked")
+//   createdChats   Chat[]           @relation("Creator")
+//   chatMembers    ChatMember[]
+//   sentMessages   Message[]
+//   readReceipts   ReadReceipt[]
+//   reactions      Reaction[]
+//   calls          Call[]
+//   callParticipants CallParticipant[]
+//   statusUpdates  StatusUpdate[]
+//   statusViews    StatusView[]
+// }
 
 model Contact {
   id         Int      @id @default(autoincrement())
   userId     Int
-  user       User?     @relation("UserContacts", fields: [userId], references: [id])
+  user       User?    @relation("UserContacts", fields: [userId], references: [id])
   contactId  Int
   name       String?
   isFavorite Boolean  @default(false)
   createdAt  DateTime @default(now())
 
   @@unique([userId, contactId])
-}
-
-model BlockedUser {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  user        User?     @relation("UserBlocking", fields: [userId], references: [id])
-  blockedId   Int
-  blockedUser User?     @relation("UserBlocked", fields: [blockedId], references: [id])
-  createdAt   DateTime @default(now())
-
-  @@unique([userId, blockedId])
-}
-
-model Chat {
-  id          Int          @id @default(autoincrement())
-  name        String?
-  description String?
-  isGroup     Boolean      @default(false)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  createdBy   Int?
-  creator     User?        @relation("Creator", fields: [createdBy], references: [id])
-  picture     String?
-  members     ChatMember[]
-  messages    Message[]
-  calls       Call[]
-}
-
-model ChatMember {
-  id         Int            @id @default(autoincrement())
-  chatId     Int
-  chat       Chat           @relation(fields: [chatId], references: [id])
-  userId     Int
-  user       User           @relation(fields: [userId], references: [id])
-  joinedAt   DateTime       @default(now())
-  role       ChatMemberRole @default(MEMBER)
-  lastReadAt DateTime?
-
-  @@unique([chatId, userId])
-}
-
-model Message {
-  id        Int           @id @default(autoincrement())
-  chatId    Int
-  chat      Chat          @relation(fields: [chatId], references: [id])
-  senderId  Int
-  sender    User          @relation(fields: [senderId], references: [id])
-  content   String
-  mediaUrl  String?
-  mediaType String? // IMAGE, VIDEO, AUDIO, DOCUMENT
-  isDeleted Boolean       @default(false)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  replyToId Int?
-  replyTo   Message?      @relation("MessageReplies", fields: [replyToId], references: [id])
-  replies   Message[]     @relation("MessageReplies")
-  readBy    ReadReceipt[]
-  reactions Reaction[]
 }
 
 model ReadReceipt {
@@ -218,4 +145,85 @@ model StatusView {
   viewedAt DateTime     @default(now())
 
   @@unique([statusId, viewerId])
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  phonenumber   Int      @unique
+  profilPicture String
+  lastScene     DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime
+
+  //// this is relation thing user containing of the data 
+
+  sessions     Session[]
+  blockedUser  BlockedUser[]
+  createdChats Chat[]
+  sentMessage  Message[]
+  call         Call[]
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  userId     Int
+  user       User?    @relation(fields: [userId], references: [id])
+  token      String   @unique
+  deviceInfo String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  isActive   Boolean  @default(false)
+
+  @@index([userId])
+}
+
+model BlockedUser {
+  id              Int   @id @default(autoincrement())
+  blockerId       Int
+  blockedId       Int
+  blockerRelation User? @relation(fields: [blockedId], references: [id])
+}
+
+model Chat {
+  chatID      Int          @id @default(autoincrement())
+  name        String?
+  lastMessage String?
+  isGroup     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  createdBy   Int?
+  creator     User?        @relation(fields: [createdBy], references: [id])
+  picture     String?
+  members     ChatMember[]
+  messages    Message[]
+  calls       Call[]
+}
+
+model ChatMember {
+  id      Int     @id @default(autoincrement())
+  name    String?
+  userId  Int
+  user    User?   @relation(fields: [userId], references: [id])
+  picture String?
+}
+
+model Message {
+  id        Int           @id @default(autoincrement())
+  chatId    Int
+  chat      Chat          @relation(fields: [chatId], references: [id])
+  senderId  Int
+  sender    User          @relation(fields: [senderId], references: [id])
+  content   String
+  mediaUrl  String?
+  mediaType String? // IMAGE, VIDEO, AUDIO, DOCUMENT
+  isDeleted Boolean       @default(false)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  replyToId Int?
+  replyTo   Message?      @relation("MessageReplies", fields: [replyToId], references: [id])
+  replies   Message[]     @relation("MessageReplies")
+  readBy    ReadReceipt[]
+  reactions Reaction[]
 }

@@ -37,48 +37,42 @@ enum CallParticipantStatus {
 
 model User {
   id             Int       @id @default(autoincrement())
-  phoneNumber    String    @unique
+  // Add other user fields as needed, for example:
+  name           String?
   email          String?   @unique
-  firstName      String?
-  lastName       String?
-  bio            String?
+  phone          String?   @unique
+  password       String?
   profilePicture String?
-  status         String    @default("Hey there! I am using WhatsApp")
   lastSeen       DateTime?
-  isOnline       Boolean   @default(false)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  // Relationships
-  sessions        Session[]
-  contacts        Contact[]         @relation("UserContacts")
-  blockedUsers    BlockedUser[]     @relation("UserBlocking")
-  blockedBy       BlockedUser[]     @relation("UserBlocked")
-  chats           ChatMember[]
-  messages        Message[]
-  calls           Call[]
-  statusUpdates   StatusUpdate[]
-  statusViews     StatusView[]
-  Contact         Contact[]
-  Chat            Chat[]
-  ReadReceipt     ReadReceipt[]
-  Reaction        Reaction[]
-  CallParticipant CallParticipant[]
-
-  @@index([phoneNumber])
-  @@index([isOnline])
+  // Add relations based on your existing schema
+  sessions         Session[]
+  contacts         Contact[]         @relation("UserContacts")
+  blockedUsers     BlockedUser[]     @relation("UserBlocking")
+  blockedBy        BlockedUser[]     @relation("UserBlocked")
+  createdChats     Chat[]            @relation("Creator")
+  chatMembers      ChatMember[]
+  sentMessages     Message[]
+  readReceipts     ReadReceipt[]
+  reactions        Reaction[]
+  calls            Call[]
+  callParticipants CallParticipant[]
+  statusUpdates    StatusUpdate[]
+  statusViews      StatusView[]
 }
 
 model Session {
   id         String   @id @default(cuid())
   userId     Int
-  user       User     @relation(fields: [userId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id])
   token      String   @unique
   deviceInfo String?
   ipAddress  String?
   createdAt  DateTime @default(now())
   expiresAt  DateTime
-  isActive   Boolean  @default(true)
+  isActive   Boolean  @default(false)
 
   @@index([userId])
 }
@@ -86,9 +80,8 @@ model Session {
 model Contact {
   id         Int      @id @default(autoincrement())
   userId     Int
-  user       User     @relation("UserContacts", fields: [userId], references: [id])
+  user       User?    @relation("UserContacts", fields: [userId], references: [id])
   contactId  Int
-  contact    User     @relation(fields: [contactId], references: [id])
   name       String?
   isFavorite Boolean  @default(false)
   createdAt  DateTime @default(now())
@@ -99,9 +92,9 @@ model Contact {
 model BlockedUser {
   id          Int      @id @default(autoincrement())
   userId      Int
-  user        User     @relation("UserBlocking", fields: [userId], references: [id])
+  user        User?    @relation("UserBlocking", fields: [userId], references: [id])
   blockedId   Int
-  blockedUser User     @relation("UserBlocked", fields: [blockedId], references: [id])
+  blockedUser User?    @relation("UserBlocked", fields: [blockedId], references: [id])
   createdAt   DateTime @default(now())
 
   @@unique([userId, blockedId])
@@ -115,7 +108,7 @@ model Chat {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   createdBy   Int?
-  creator     User?        @relation(fields: [createdBy], references: [id])
+  creator     User?        @relation("Creator", fields: [createdBy], references: [id])
   picture     String?
   members     ChatMember[]
   messages    Message[]

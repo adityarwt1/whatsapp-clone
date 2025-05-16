@@ -2023,16 +2023,15 @@ export namespace Prisma {
     contacts: number
     blockedUsers: number
     blockedBy: number
-    chats: number
-    messages: number
+    createdChats: number
+    chatMembers: number
+    sentMessages: number
+    readReceipts: number
+    reactions: number
     calls: number
+    callParticipants: number
     statusUpdates: number
     statusViews: number
-    Contact: number
-    Chat: number
-    ReadReceipt: number
-    Reaction: number
-    CallParticipant: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2040,16 +2039,15 @@ export namespace Prisma {
     contacts?: boolean | UserCountOutputTypeCountContactsArgs
     blockedUsers?: boolean | UserCountOutputTypeCountBlockedUsersArgs
     blockedBy?: boolean | UserCountOutputTypeCountBlockedByArgs
-    chats?: boolean | UserCountOutputTypeCountChatsArgs
-    messages?: boolean | UserCountOutputTypeCountMessagesArgs
+    createdChats?: boolean | UserCountOutputTypeCountCreatedChatsArgs
+    chatMembers?: boolean | UserCountOutputTypeCountChatMembersArgs
+    sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+    readReceipts?: boolean | UserCountOutputTypeCountReadReceiptsArgs
+    reactions?: boolean | UserCountOutputTypeCountReactionsArgs
     calls?: boolean | UserCountOutputTypeCountCallsArgs
+    callParticipants?: boolean | UserCountOutputTypeCountCallParticipantsArgs
     statusUpdates?: boolean | UserCountOutputTypeCountStatusUpdatesArgs
     statusViews?: boolean | UserCountOutputTypeCountStatusViewsArgs
-    Contact?: boolean | UserCountOutputTypeCountContactArgs
-    Chat?: boolean | UserCountOutputTypeCountChatArgs
-    ReadReceipt?: boolean | UserCountOutputTypeCountReadReceiptArgs
-    Reaction?: boolean | UserCountOutputTypeCountReactionArgs
-    CallParticipant?: boolean | UserCountOutputTypeCountCallParticipantArgs
   }
 
   // Custom InputTypes
@@ -2094,15 +2092,36 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountCreatedChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChatWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChatMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChatMemberWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReadReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReadReceiptWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReactionWhereInput
   }
 
   /**
@@ -2110,6 +2129,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CallWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCallParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CallParticipantWhereInput
   }
 
   /**
@@ -2124,41 +2150,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountStatusViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StatusViewWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountContactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ContactWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountChatArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ChatWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReadReceiptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReadReceiptWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReactionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountCallParticipantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CallParticipantWhereInput
   }
 
 
@@ -2348,45 +2339,36 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: number | null
-    phoneNumber: string | null
+    name: string | null
     email: string | null
-    firstName: string | null
-    lastName: string | null
-    bio: string | null
+    phone: string | null
+    password: string | null
     profilePicture: string | null
-    status: string | null
     lastSeen: Date | null
-    isOnline: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
-    phoneNumber: string | null
+    name: string | null
     email: string | null
-    firstName: string | null
-    lastName: string | null
-    bio: string | null
+    phone: string | null
+    password: string | null
     profilePicture: string | null
-    status: string | null
     lastSeen: Date | null
-    isOnline: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    phoneNumber: number
+    name: number
     email: number
-    firstName: number
-    lastName: number
-    bio: number
+    phone: number
+    password: number
     profilePicture: number
-    status: number
     lastSeen: number
-    isOnline: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2403,45 +2385,36 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    phoneNumber?: true
+    name?: true
     email?: true
-    firstName?: true
-    lastName?: true
-    bio?: true
+    phone?: true
+    password?: true
     profilePicture?: true
-    status?: true
     lastSeen?: true
-    isOnline?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    phoneNumber?: true
+    name?: true
     email?: true
-    firstName?: true
-    lastName?: true
-    bio?: true
+    phone?: true
+    password?: true
     profilePicture?: true
-    status?: true
     lastSeen?: true
-    isOnline?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    phoneNumber?: true
+    name?: true
     email?: true
-    firstName?: true
-    lastName?: true
-    bio?: true
+    phone?: true
+    password?: true
     profilePicture?: true
-    status?: true
     lastSeen?: true
-    isOnline?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2535,15 +2508,12 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    phoneNumber: string
+    name: string | null
     email: string | null
-    firstName: string | null
-    lastName: string | null
-    bio: string | null
+    phone: string | null
+    password: string | null
     profilePicture: string | null
-    status: string
     lastSeen: Date | null
-    isOnline: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2569,95 +2539,81 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    phoneNumber?: boolean
+    name?: boolean
     email?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    bio?: boolean
+    phone?: boolean
+    password?: boolean
     profilePicture?: boolean
-    status?: boolean
     lastSeen?: boolean
-    isOnline?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     contacts?: boolean | User$contactsArgs<ExtArgs>
     blockedUsers?: boolean | User$blockedUsersArgs<ExtArgs>
     blockedBy?: boolean | User$blockedByArgs<ExtArgs>
-    chats?: boolean | User$chatsArgs<ExtArgs>
-    messages?: boolean | User$messagesArgs<ExtArgs>
+    createdChats?: boolean | User$createdChatsArgs<ExtArgs>
+    chatMembers?: boolean | User$chatMembersArgs<ExtArgs>
+    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    readReceipts?: boolean | User$readReceiptsArgs<ExtArgs>
+    reactions?: boolean | User$reactionsArgs<ExtArgs>
     calls?: boolean | User$callsArgs<ExtArgs>
+    callParticipants?: boolean | User$callParticipantsArgs<ExtArgs>
     statusUpdates?: boolean | User$statusUpdatesArgs<ExtArgs>
     statusViews?: boolean | User$statusViewsArgs<ExtArgs>
-    Contact?: boolean | User$ContactArgs<ExtArgs>
-    Chat?: boolean | User$ChatArgs<ExtArgs>
-    ReadReceipt?: boolean | User$ReadReceiptArgs<ExtArgs>
-    Reaction?: boolean | User$ReactionArgs<ExtArgs>
-    CallParticipant?: boolean | User$CallParticipantArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    phoneNumber?: boolean
+    name?: boolean
     email?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    bio?: boolean
+    phone?: boolean
+    password?: boolean
     profilePicture?: boolean
-    status?: boolean
     lastSeen?: boolean
-    isOnline?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    phoneNumber?: boolean
+    name?: boolean
     email?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    bio?: boolean
+    phone?: boolean
+    password?: boolean
     profilePicture?: boolean
-    status?: boolean
     lastSeen?: boolean
-    isOnline?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    phoneNumber?: boolean
+    name?: boolean
     email?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    bio?: boolean
+    phone?: boolean
+    password?: boolean
     profilePicture?: boolean
-    status?: boolean
     lastSeen?: boolean
-    isOnline?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phoneNumber" | "email" | "firstName" | "lastName" | "bio" | "profilePicture" | "status" | "lastSeen" | "isOnline" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "profilePicture" | "lastSeen" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     contacts?: boolean | User$contactsArgs<ExtArgs>
     blockedUsers?: boolean | User$blockedUsersArgs<ExtArgs>
     blockedBy?: boolean | User$blockedByArgs<ExtArgs>
-    chats?: boolean | User$chatsArgs<ExtArgs>
-    messages?: boolean | User$messagesArgs<ExtArgs>
+    createdChats?: boolean | User$createdChatsArgs<ExtArgs>
+    chatMembers?: boolean | User$chatMembersArgs<ExtArgs>
+    sentMessages?: boolean | User$sentMessagesArgs<ExtArgs>
+    readReceipts?: boolean | User$readReceiptsArgs<ExtArgs>
+    reactions?: boolean | User$reactionsArgs<ExtArgs>
     calls?: boolean | User$callsArgs<ExtArgs>
+    callParticipants?: boolean | User$callParticipantsArgs<ExtArgs>
     statusUpdates?: boolean | User$statusUpdatesArgs<ExtArgs>
     statusViews?: boolean | User$statusViewsArgs<ExtArgs>
-    Contact?: boolean | User$ContactArgs<ExtArgs>
-    Chat?: boolean | User$ChatArgs<ExtArgs>
-    ReadReceipt?: boolean | User$ReadReceiptArgs<ExtArgs>
-    Reaction?: boolean | User$ReactionArgs<ExtArgs>
-    CallParticipant?: boolean | User$CallParticipantArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2670,28 +2626,24 @@ export namespace Prisma {
       contacts: Prisma.$ContactPayload<ExtArgs>[]
       blockedUsers: Prisma.$BlockedUserPayload<ExtArgs>[]
       blockedBy: Prisma.$BlockedUserPayload<ExtArgs>[]
-      chats: Prisma.$ChatMemberPayload<ExtArgs>[]
-      messages: Prisma.$MessagePayload<ExtArgs>[]
+      createdChats: Prisma.$ChatPayload<ExtArgs>[]
+      chatMembers: Prisma.$ChatMemberPayload<ExtArgs>[]
+      sentMessages: Prisma.$MessagePayload<ExtArgs>[]
+      readReceipts: Prisma.$ReadReceiptPayload<ExtArgs>[]
+      reactions: Prisma.$ReactionPayload<ExtArgs>[]
       calls: Prisma.$CallPayload<ExtArgs>[]
+      callParticipants: Prisma.$CallParticipantPayload<ExtArgs>[]
       statusUpdates: Prisma.$StatusUpdatePayload<ExtArgs>[]
       statusViews: Prisma.$StatusViewPayload<ExtArgs>[]
-      Contact: Prisma.$ContactPayload<ExtArgs>[]
-      Chat: Prisma.$ChatPayload<ExtArgs>[]
-      ReadReceipt: Prisma.$ReadReceiptPayload<ExtArgs>[]
-      Reaction: Prisma.$ReactionPayload<ExtArgs>[]
-      CallParticipant: Prisma.$CallParticipantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      phoneNumber: string
+      name: string | null
       email: string | null
-      firstName: string | null
-      lastName: string | null
-      bio: string | null
+      phone: string | null
+      password: string | null
       profilePicture: string | null
-      status: string
       lastSeen: Date | null
-      isOnline: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3092,16 +3044,15 @@ export namespace Prisma {
     contacts<T extends User$contactsArgs<ExtArgs> = {}>(args?: Subset<T, User$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blockedUsers<T extends User$blockedUsersArgs<ExtArgs> = {}>(args?: Subset<T, User$blockedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blockedBy<T extends User$blockedByArgs<ExtArgs> = {}>(args?: Subset<T, User$blockedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    chats<T extends User$chatsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdChats<T extends User$createdChatsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdChatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chatMembers<T extends User$chatMembersArgs<ExtArgs> = {}>(args?: Subset<T, User$chatMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sentMessages<T extends User$sentMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    readReceipts<T extends User$readReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$readReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reactions<T extends User$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     calls<T extends User$callsArgs<ExtArgs> = {}>(args?: Subset<T, User$callsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    callParticipants<T extends User$callParticipantsArgs<ExtArgs> = {}>(args?: Subset<T, User$callParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     statusUpdates<T extends User$statusUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, User$statusUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     statusViews<T extends User$statusViewsArgs<ExtArgs> = {}>(args?: Subset<T, User$statusViewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Contact<T extends User$ContactArgs<ExtArgs> = {}>(args?: Subset<T, User$ContactArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Chat<T extends User$ChatArgs<ExtArgs> = {}>(args?: Subset<T, User$ChatArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    ReadReceipt<T extends User$ReadReceiptArgs<ExtArgs> = {}>(args?: Subset<T, User$ReadReceiptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Reaction<T extends User$ReactionArgs<ExtArgs> = {}>(args?: Subset<T, User$ReactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    CallParticipant<T extends User$CallParticipantArgs<ExtArgs> = {}>(args?: Subset<T, User$CallParticipantArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CallParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3132,15 +3083,12 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
-    readonly phoneNumber: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly firstName: FieldRef<"User", 'String'>
-    readonly lastName: FieldRef<"User", 'String'>
-    readonly bio: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
     readonly profilePicture: FieldRef<"User", 'String'>
-    readonly status: FieldRef<"User", 'String'>
     readonly lastSeen: FieldRef<"User", 'DateTime'>
-    readonly isOnline: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3627,9 +3575,33 @@ export namespace Prisma {
   }
 
   /**
-   * User.chats
+   * User.createdChats
    */
-  export type User$chatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$createdChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chat
+     */
+    select?: ChatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Chat
+     */
+    omit?: ChatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChatInclude<ExtArgs> | null
+    where?: ChatWhereInput
+    orderBy?: ChatOrderByWithRelationInput | ChatOrderByWithRelationInput[]
+    cursor?: ChatWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChatScalarFieldEnum | ChatScalarFieldEnum[]
+  }
+
+  /**
+   * User.chatMembers
+   */
+  export type User$chatMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ChatMember
      */
@@ -3651,9 +3623,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.messages
+   * User.sentMessages
    */
-  export type User$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$sentMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Message
      */
@@ -3672,6 +3644,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.readReceipts
+   */
+  export type User$readReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReadReceipt
+     */
+    select?: ReadReceiptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReadReceipt
+     */
+    omit?: ReadReceiptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReadReceiptInclude<ExtArgs> | null
+    where?: ReadReceiptWhereInput
+    orderBy?: ReadReceiptOrderByWithRelationInput | ReadReceiptOrderByWithRelationInput[]
+    cursor?: ReadReceiptWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReadReceiptScalarFieldEnum | ReadReceiptScalarFieldEnum[]
+  }
+
+  /**
+   * User.reactions
+   */
+  export type User$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reaction
+     */
+    select?: ReactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reaction
+     */
+    omit?: ReactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReactionInclude<ExtArgs> | null
+    where?: ReactionWhereInput
+    orderBy?: ReactionOrderByWithRelationInput | ReactionOrderByWithRelationInput[]
+    cursor?: ReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReactionScalarFieldEnum | ReactionScalarFieldEnum[]
   }
 
   /**
@@ -3696,6 +3716,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CallScalarFieldEnum | CallScalarFieldEnum[]
+  }
+
+  /**
+   * User.callParticipants
+   */
+  export type User$callParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CallParticipant
+     */
+    select?: CallParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CallParticipant
+     */
+    omit?: CallParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CallParticipantInclude<ExtArgs> | null
+    where?: CallParticipantWhereInput
+    orderBy?: CallParticipantOrderByWithRelationInput | CallParticipantOrderByWithRelationInput[]
+    cursor?: CallParticipantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CallParticipantScalarFieldEnum | CallParticipantScalarFieldEnum[]
   }
 
   /**
@@ -3744,126 +3788,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StatusViewScalarFieldEnum | StatusViewScalarFieldEnum[]
-  }
-
-  /**
-   * User.Contact
-   */
-  export type User$ContactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Contact
-     */
-    select?: ContactSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Contact
-     */
-    omit?: ContactOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ContactInclude<ExtArgs> | null
-    where?: ContactWhereInput
-    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
-    cursor?: ContactWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
-  }
-
-  /**
-   * User.Chat
-   */
-  export type User$ChatArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Chat
-     */
-    select?: ChatSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Chat
-     */
-    omit?: ChatOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ChatInclude<ExtArgs> | null
-    where?: ChatWhereInput
-    orderBy?: ChatOrderByWithRelationInput | ChatOrderByWithRelationInput[]
-    cursor?: ChatWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ChatScalarFieldEnum | ChatScalarFieldEnum[]
-  }
-
-  /**
-   * User.ReadReceipt
-   */
-  export type User$ReadReceiptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ReadReceipt
-     */
-    select?: ReadReceiptSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ReadReceipt
-     */
-    omit?: ReadReceiptOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReadReceiptInclude<ExtArgs> | null
-    where?: ReadReceiptWhereInput
-    orderBy?: ReadReceiptOrderByWithRelationInput | ReadReceiptOrderByWithRelationInput[]
-    cursor?: ReadReceiptWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReadReceiptScalarFieldEnum | ReadReceiptScalarFieldEnum[]
-  }
-
-  /**
-   * User.Reaction
-   */
-  export type User$ReactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Reaction
-     */
-    select?: ReactionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Reaction
-     */
-    omit?: ReactionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReactionInclude<ExtArgs> | null
-    where?: ReactionWhereInput
-    orderBy?: ReactionOrderByWithRelationInput | ReactionOrderByWithRelationInput[]
-    cursor?: ReactionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReactionScalarFieldEnum | ReactionScalarFieldEnum[]
-  }
-
-  /**
-   * User.CallParticipant
-   */
-  export type User$CallParticipantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CallParticipant
-     */
-    select?: CallParticipantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CallParticipant
-     */
-    omit?: CallParticipantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CallParticipantInclude<ExtArgs> | null
-    where?: CallParticipantWhereInput
-    orderBy?: CallParticipantOrderByWithRelationInput | CallParticipantOrderByWithRelationInput[]
-    cursor?: CallParticipantWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CallParticipantScalarFieldEnum | CallParticipantScalarFieldEnum[]
   }
 
   /**
@@ -4107,7 +4031,7 @@ export namespace Prisma {
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4119,7 +4043,7 @@ export namespace Prisma {
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4131,7 +4055,7 @@ export namespace Prisma {
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectScalar = {
@@ -4147,19 +4071,19 @@ export namespace Prisma {
 
   export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "deviceInfo" | "ipAddress" | "createdAt" | "expiresAt" | "isActive", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }
   export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }
   export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Session$userArgs<ExtArgs>
   }
 
   export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Session"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4564,7 +4488,7 @@ export namespace Prisma {
    */
   export interface Prisma__SessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Session$userArgs<ExtArgs> = {}>(args?: Subset<T, Session$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4998,6 +4922,25 @@ export namespace Prisma {
   }
 
   /**
+   * Session.user
+   */
+  export type Session$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Session without action
    */
   export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5230,8 +5173,7 @@ export namespace Prisma {
     name?: boolean
     isFavorite?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5241,8 +5183,7 @@ export namespace Prisma {
     name?: boolean
     isFavorite?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5252,8 +5193,7 @@ export namespace Prisma {
     name?: boolean
     isFavorite?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
   export type ContactSelectScalar = {
@@ -5267,23 +5207,19 @@ export namespace Prisma {
 
   export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "contactId" | "name" | "isFavorite" | "createdAt", ExtArgs["result"]["contact"]>
   export type ContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }
   export type ContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }
   export type ContactIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    contact?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Contact$userArgs<ExtArgs>
   }
 
   export type $ContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Contact"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      contact: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5686,8 +5622,7 @@ export namespace Prisma {
    */
   export interface Prisma__ContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    contact<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Contact$userArgs<ExtArgs> = {}>(args?: Subset<T, Contact$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6119,6 +6054,25 @@ export namespace Prisma {
   }
 
   /**
+   * Contact.user
+   */
+  export type Contact$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Contact without action
    */
   export type ContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6335,8 +6289,8 @@ export namespace Prisma {
     userId?: boolean
     blockedId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }, ExtArgs["result"]["blockedUser"]>
 
   export type BlockedUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6344,8 +6298,8 @@ export namespace Prisma {
     userId?: boolean
     blockedId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }, ExtArgs["result"]["blockedUser"]>
 
   export type BlockedUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6353,8 +6307,8 @@ export namespace Prisma {
     userId?: boolean
     blockedId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }, ExtArgs["result"]["blockedUser"]>
 
   export type BlockedUserSelectScalar = {
@@ -6366,23 +6320,23 @@ export namespace Prisma {
 
   export type BlockedUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "blockedId" | "createdAt", ExtArgs["result"]["blockedUser"]>
   export type BlockedUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }
   export type BlockedUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }
   export type BlockedUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    blockedUser?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | BlockedUser$userArgs<ExtArgs>
+    blockedUser?: boolean | BlockedUser$blockedUserArgs<ExtArgs>
   }
 
   export type $BlockedUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BlockedUser"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      blockedUser: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
+      blockedUser: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6783,8 +6737,8 @@ export namespace Prisma {
    */
   export interface Prisma__BlockedUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    blockedUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends BlockedUser$userArgs<ExtArgs> = {}>(args?: Subset<T, BlockedUser$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    blockedUser<T extends BlockedUser$blockedUserArgs<ExtArgs> = {}>(args?: Subset<T, BlockedUser$blockedUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7211,6 +7165,44 @@ export namespace Prisma {
      * Limit how many BlockedUsers to delete.
      */
     limit?: number
+  }
+
+  /**
+   * BlockedUser.user
+   */
+  export type BlockedUser$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * BlockedUser.blockedUser
+   */
+  export type BlockedUser$blockedUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -17634,15 +17626,12 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    phoneNumber: 'phoneNumber',
+    name: 'name',
     email: 'email',
-    firstName: 'firstName',
-    lastName: 'lastName',
-    bio: 'bio',
+    phone: 'phone',
+    password: 'password',
     profilePicture: 'profilePicture',
-    status: 'status',
     lastSeen: 'lastSeen',
-    isOnline: 'isOnline',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -17953,105 +17942,90 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    phoneNumber?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
     email?: StringNullableFilter<"User"> | string | null
-    firstName?: StringNullableFilter<"User"> | string | null
-    lastName?: StringNullableFilter<"User"> | string | null
-    bio?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     profilePicture?: StringNullableFilter<"User"> | string | null
-    status?: StringFilter<"User"> | string
     lastSeen?: DateTimeNullableFilter<"User"> | Date | string | null
-    isOnline?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     contacts?: ContactListRelationFilter
     blockedUsers?: BlockedUserListRelationFilter
     blockedBy?: BlockedUserListRelationFilter
-    chats?: ChatMemberListRelationFilter
-    messages?: MessageListRelationFilter
+    createdChats?: ChatListRelationFilter
+    chatMembers?: ChatMemberListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    readReceipts?: ReadReceiptListRelationFilter
+    reactions?: ReactionListRelationFilter
     calls?: CallListRelationFilter
+    callParticipants?: CallParticipantListRelationFilter
     statusUpdates?: StatusUpdateListRelationFilter
     statusViews?: StatusViewListRelationFilter
-    Contact?: ContactListRelationFilter
-    Chat?: ChatListRelationFilter
-    ReadReceipt?: ReadReceiptListRelationFilter
-    Reaction?: ReactionListRelationFilter
-    CallParticipant?: CallParticipantListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
+    name?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
-    firstName?: SortOrderInput | SortOrder
-    lastName?: SortOrderInput | SortOrder
-    bio?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     profilePicture?: SortOrderInput | SortOrder
-    status?: SortOrder
     lastSeen?: SortOrderInput | SortOrder
-    isOnline?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     contacts?: ContactOrderByRelationAggregateInput
     blockedUsers?: BlockedUserOrderByRelationAggregateInput
     blockedBy?: BlockedUserOrderByRelationAggregateInput
-    chats?: ChatMemberOrderByRelationAggregateInput
-    messages?: MessageOrderByRelationAggregateInput
+    createdChats?: ChatOrderByRelationAggregateInput
+    chatMembers?: ChatMemberOrderByRelationAggregateInput
+    sentMessages?: MessageOrderByRelationAggregateInput
+    readReceipts?: ReadReceiptOrderByRelationAggregateInput
+    reactions?: ReactionOrderByRelationAggregateInput
     calls?: CallOrderByRelationAggregateInput
+    callParticipants?: CallParticipantOrderByRelationAggregateInput
     statusUpdates?: StatusUpdateOrderByRelationAggregateInput
     statusViews?: StatusViewOrderByRelationAggregateInput
-    Contact?: ContactOrderByRelationAggregateInput
-    Chat?: ChatOrderByRelationAggregateInput
-    ReadReceipt?: ReadReceiptOrderByRelationAggregateInput
-    Reaction?: ReactionOrderByRelationAggregateInput
-    CallParticipant?: CallParticipantOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    phoneNumber?: string
     email?: string
+    phone?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    firstName?: StringNullableFilter<"User"> | string | null
-    lastName?: StringNullableFilter<"User"> | string | null
-    bio?: StringNullableFilter<"User"> | string | null
+    name?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     profilePicture?: StringNullableFilter<"User"> | string | null
-    status?: StringFilter<"User"> | string
     lastSeen?: DateTimeNullableFilter<"User"> | Date | string | null
-    isOnline?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     contacts?: ContactListRelationFilter
     blockedUsers?: BlockedUserListRelationFilter
     blockedBy?: BlockedUserListRelationFilter
-    chats?: ChatMemberListRelationFilter
-    messages?: MessageListRelationFilter
+    createdChats?: ChatListRelationFilter
+    chatMembers?: ChatMemberListRelationFilter
+    sentMessages?: MessageListRelationFilter
+    readReceipts?: ReadReceiptListRelationFilter
+    reactions?: ReactionListRelationFilter
     calls?: CallListRelationFilter
+    callParticipants?: CallParticipantListRelationFilter
     statusUpdates?: StatusUpdateListRelationFilter
     statusViews?: StatusViewListRelationFilter
-    Contact?: ContactListRelationFilter
-    Chat?: ChatListRelationFilter
-    ReadReceipt?: ReadReceiptListRelationFilter
-    Reaction?: ReactionListRelationFilter
-    CallParticipant?: CallParticipantListRelationFilter
-  }, "id" | "phoneNumber" | "email">
+  }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
+    name?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
-    firstName?: SortOrderInput | SortOrder
-    lastName?: SortOrderInput | SortOrder
-    bio?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     profilePicture?: SortOrderInput | SortOrder
-    status?: SortOrder
     lastSeen?: SortOrderInput | SortOrder
-    isOnline?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -18066,15 +18040,12 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    phoneNumber?: StringWithAggregatesFilter<"User"> | string
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringNullableWithAggregatesFilter<"User"> | string | null
-    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
-    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
-    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
     profilePicture?: StringNullableWithAggregatesFilter<"User"> | string | null
-    status?: StringWithAggregatesFilter<"User"> | string
     lastSeen?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    isOnline?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -18091,7 +18062,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
     expiresAt?: DateTimeFilter<"Session"> | Date | string
     isActive?: BoolFilter<"Session"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type SessionOrderByWithRelationInput = {
@@ -18118,7 +18089,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
     expiresAt?: DateTimeFilter<"Session"> | Date | string
     isActive?: BoolFilter<"Session"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "token">
 
   export type SessionOrderByWithAggregationInput = {
@@ -18161,8 +18132,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"Contact"> | string | null
     isFavorite?: BoolFilter<"Contact"> | boolean
     createdAt?: DateTimeFilter<"Contact"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    contact?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type ContactOrderByWithRelationInput = {
@@ -18173,7 +18143,6 @@ export namespace Prisma {
     isFavorite?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    contact?: UserOrderByWithRelationInput
   }
 
   export type ContactWhereUniqueInput = Prisma.AtLeast<{
@@ -18187,8 +18156,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"Contact"> | string | null
     isFavorite?: BoolFilter<"Contact"> | boolean
     createdAt?: DateTimeFilter<"Contact"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    contact?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "userId_contactId">
 
   export type ContactOrderByWithAggregationInput = {
@@ -18225,8 +18193,8 @@ export namespace Prisma {
     userId?: IntFilter<"BlockedUser"> | number
     blockedId?: IntFilter<"BlockedUser"> | number
     createdAt?: DateTimeFilter<"BlockedUser"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    blockedUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    blockedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type BlockedUserOrderByWithRelationInput = {
@@ -18247,8 +18215,8 @@ export namespace Prisma {
     userId?: IntFilter<"BlockedUser"> | number
     blockedId?: IntFilter<"BlockedUser"> | number
     createdAt?: DateTimeFilter<"BlockedUser"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    blockedUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    blockedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "userId_blockedId">
 
   export type BlockedUserOrderByWithAggregationInput = {
@@ -18900,159 +18868,134 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19065,7 +19008,7 @@ export namespace Prisma {
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
-    user: UserCreateNestedOneWithoutSessionsInput
+    user?: UserCreateNestedOneWithoutSessionsInput
   }
 
   export type SessionUncheckedCreateInput = {
@@ -19087,7 +19030,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
+    user?: UserUpdateOneWithoutSessionsNestedInput
   }
 
   export type SessionUncheckedUpdateInput = {
@@ -19134,11 +19077,11 @@ export namespace Prisma {
   }
 
   export type ContactCreateInput = {
+    contactId: number
     name?: string | null
     isFavorite?: boolean
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutContactsInput
-    contact: UserCreateNestedOneWithoutContactInput
+    user?: UserCreateNestedOneWithoutContactsInput
   }
 
   export type ContactUncheckedCreateInput = {
@@ -19151,11 +19094,11 @@ export namespace Prisma {
   }
 
   export type ContactUpdateInput = {
+    contactId?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     isFavorite?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutContactsNestedInput
-    contact?: UserUpdateOneRequiredWithoutContactNestedInput
+    user?: UserUpdateOneWithoutContactsNestedInput
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -19177,6 +19120,7 @@ export namespace Prisma {
   }
 
   export type ContactUpdateManyMutationInput = {
+    contactId?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     isFavorite?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19193,8 +19137,8 @@ export namespace Prisma {
 
   export type BlockedUserCreateInput = {
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutBlockedUsersInput
-    blockedUser: UserCreateNestedOneWithoutBlockedByInput
+    user?: UserCreateNestedOneWithoutBlockedUsersInput
+    blockedUser?: UserCreateNestedOneWithoutBlockedByInput
   }
 
   export type BlockedUserUncheckedCreateInput = {
@@ -19206,8 +19150,8 @@ export namespace Prisma {
 
   export type BlockedUserUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutBlockedUsersNestedInput
-    blockedUser?: UserUpdateOneRequiredWithoutBlockedByNestedInput
+    user?: UserUpdateOneWithoutBlockedUsersNestedInput
+    blockedUser?: UserUpdateOneWithoutBlockedByNestedInput
   }
 
   export type BlockedUserUncheckedUpdateInput = {
@@ -19242,7 +19186,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     picture?: string | null
-    creator?: UserCreateNestedOneWithoutChatInput
+    creator?: UserCreateNestedOneWithoutCreatedChatsInput
     members?: ChatMemberCreateNestedManyWithoutChatInput
     messages?: MessageCreateNestedManyWithoutChatInput
     calls?: CallCreateNestedManyWithoutChatInput
@@ -19269,7 +19213,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     picture?: NullableStringFieldUpdateOperationsInput | string | null
-    creator?: UserUpdateOneWithoutChatNestedInput
+    creator?: UserUpdateOneWithoutCreatedChatsNestedInput
     members?: ChatMemberUpdateManyWithoutChatNestedInput
     messages?: MessageUpdateManyWithoutChatNestedInput
     calls?: CallUpdateManyWithoutChatNestedInput
@@ -19325,7 +19269,7 @@ export namespace Prisma {
     role?: $Enums.ChatMemberRole
     lastReadAt?: Date | string | null
     chat: ChatCreateNestedOneWithoutMembersInput
-    user: UserCreateNestedOneWithoutChatsInput
+    user: UserCreateNestedOneWithoutChatMembersInput
   }
 
   export type ChatMemberUncheckedCreateInput = {
@@ -19342,7 +19286,7 @@ export namespace Prisma {
     role?: EnumChatMemberRoleFieldUpdateOperationsInput | $Enums.ChatMemberRole
     lastReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     chat?: ChatUpdateOneRequiredWithoutMembersNestedInput
-    user?: UserUpdateOneRequiredWithoutChatsNestedInput
+    user?: UserUpdateOneRequiredWithoutChatMembersNestedInput
   }
 
   export type ChatMemberUncheckedUpdateInput = {
@@ -19386,7 +19330,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: ChatCreateNestedOneWithoutMessagesInput
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replyTo?: MessageCreateNestedOneWithoutRepliesInput
     replies?: MessageCreateNestedManyWithoutReplyToInput
     readBy?: ReadReceiptCreateNestedManyWithoutMessageInput
@@ -19417,7 +19361,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     replies?: MessageUpdateManyWithoutReplyToNestedInput
     readBy?: ReadReceiptUpdateManyWithoutMessageNestedInput
@@ -19478,7 +19422,7 @@ export namespace Prisma {
   export type ReadReceiptCreateInput = {
     readAt?: Date | string
     message: MessageCreateNestedOneWithoutReadByInput
-    user: UserCreateNestedOneWithoutReadReceiptInput
+    user: UserCreateNestedOneWithoutReadReceiptsInput
   }
 
   export type ReadReceiptUncheckedCreateInput = {
@@ -19491,7 +19435,7 @@ export namespace Prisma {
   export type ReadReceiptUpdateInput = {
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: MessageUpdateOneRequiredWithoutReadByNestedInput
-    user?: UserUpdateOneRequiredWithoutReadReceiptNestedInput
+    user?: UserUpdateOneRequiredWithoutReadReceiptsNestedInput
   }
 
   export type ReadReceiptUncheckedUpdateInput = {
@@ -19523,7 +19467,7 @@ export namespace Prisma {
     emoji: string
     createdAt?: Date | string
     message: MessageCreateNestedOneWithoutReactionsInput
-    user: UserCreateNestedOneWithoutReactionInput
+    user: UserCreateNestedOneWithoutReactionsInput
   }
 
   export type ReactionUncheckedCreateInput = {
@@ -19538,7 +19482,7 @@ export namespace Prisma {
     emoji?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: MessageUpdateOneRequiredWithoutReactionsNestedInput
-    user?: UserUpdateOneRequiredWithoutReactionNestedInput
+    user?: UserUpdateOneRequiredWithoutReactionsNestedInput
   }
 
   export type ReactionUncheckedUpdateInput = {
@@ -19644,7 +19588,7 @@ export namespace Prisma {
     leftAt?: Date | string | null
     status?: $Enums.CallParticipantStatus
     call: CallCreateNestedOneWithoutParticipantsInput
-    user: UserCreateNestedOneWithoutCallParticipantInput
+    user: UserCreateNestedOneWithoutCallParticipantsInput
   }
 
   export type CallParticipantUncheckedCreateInput = {
@@ -19661,7 +19605,7 @@ export namespace Prisma {
     leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
     call?: CallUpdateOneRequiredWithoutParticipantsNestedInput
-    user?: UserUpdateOneRequiredWithoutCallParticipantNestedInput
+    user?: UserUpdateOneRequiredWithoutCallParticipantsNestedInput
   }
 
   export type CallParticipantUncheckedUpdateInput = {
@@ -19822,21 +19766,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -19861,11 +19790,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -19897,6 +19821,12 @@ export namespace Prisma {
     none?: BlockedUserWhereInput
   }
 
+  export type ChatListRelationFilter = {
+    every?: ChatWhereInput
+    some?: ChatWhereInput
+    none?: ChatWhereInput
+  }
+
   export type ChatMemberListRelationFilter = {
     every?: ChatMemberWhereInput
     some?: ChatMemberWhereInput
@@ -19907,30 +19837,6 @@ export namespace Prisma {
     every?: MessageWhereInput
     some?: MessageWhereInput
     none?: MessageWhereInput
-  }
-
-  export type CallListRelationFilter = {
-    every?: CallWhereInput
-    some?: CallWhereInput
-    none?: CallWhereInput
-  }
-
-  export type StatusUpdateListRelationFilter = {
-    every?: StatusUpdateWhereInput
-    some?: StatusUpdateWhereInput
-    none?: StatusUpdateWhereInput
-  }
-
-  export type StatusViewListRelationFilter = {
-    every?: StatusViewWhereInput
-    some?: StatusViewWhereInput
-    none?: StatusViewWhereInput
-  }
-
-  export type ChatListRelationFilter = {
-    every?: ChatWhereInput
-    some?: ChatWhereInput
-    none?: ChatWhereInput
   }
 
   export type ReadReceiptListRelationFilter = {
@@ -19945,10 +19851,28 @@ export namespace Prisma {
     none?: ReactionWhereInput
   }
 
+  export type CallListRelationFilter = {
+    every?: CallWhereInput
+    some?: CallWhereInput
+    none?: CallWhereInput
+  }
+
   export type CallParticipantListRelationFilter = {
     every?: CallParticipantWhereInput
     some?: CallParticipantWhereInput
     none?: CallParticipantWhereInput
+  }
+
+  export type StatusUpdateListRelationFilter = {
+    every?: StatusUpdateWhereInput
+    some?: StatusUpdateWhereInput
+    none?: StatusUpdateWhereInput
+  }
+
+  export type StatusViewListRelationFilter = {
+    every?: StatusViewWhereInput
+    some?: StatusViewWhereInput
+    none?: StatusViewWhereInput
   }
 
   export type SortOrderInput = {
@@ -19968,27 +19892,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ChatOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ChatMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MessageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CallOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StatusUpdateOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StatusViewOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ChatOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20000,21 +19912,30 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type CallOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CallParticipantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StatusUpdateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StatusViewOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
+    name?: SortOrder
     email?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    bio?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
     profilePicture?: SortOrder
-    status?: SortOrder
     lastSeen?: SortOrder
-    isOnline?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20025,30 +19946,24 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
+    name?: SortOrder
     email?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    bio?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
     profilePicture?: SortOrder
-    status?: SortOrder
     lastSeen?: SortOrder
-    isOnline?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    phoneNumber?: SortOrder
+    name?: SortOrder
     email?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    bio?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
     profilePicture?: SortOrder
-    status?: SortOrder
     lastSeen?: SortOrder
-    isOnline?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20071,24 +19986,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -20123,14 +20020,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -20145,9 +20034,29 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -20189,6 +20098,32 @@ export namespace Prisma {
 
   export type SessionSumOrderByAggregateInput = {
     userId?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ContactUserIdContactIdCompoundUniqueInput = {
@@ -20284,11 +20219,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
-
   export type ChatCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -20358,6 +20288,11 @@ export namespace Prisma {
   export type ChatScalarRelationFilter = {
     is?: ChatWhereInput
     isNot?: ChatWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type ChatMemberChatIdUserIdCompoundUniqueInput = {
@@ -20809,6 +20744,13 @@ export namespace Prisma {
     connect?: BlockedUserWhereUniqueInput | BlockedUserWhereUniqueInput[]
   }
 
+  export type ChatCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
+    createMany?: ChatCreateManyCreatorInputEnvelope
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+  }
+
   export type ChatMemberCreateNestedManyWithoutUserInput = {
     create?: XOR<ChatMemberCreateWithoutUserInput, ChatMemberUncheckedCreateWithoutUserInput> | ChatMemberCreateWithoutUserInput[] | ChatMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ChatMemberCreateOrConnectWithoutUserInput | ChatMemberCreateOrConnectWithoutUserInput[]
@@ -20821,41 +20763,6 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
     createMany?: MessageCreateManySenderInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-  }
-
-  export type CallCreateNestedManyWithoutCallerInput = {
-    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
-    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
-    createMany?: CallCreateManyCallerInputEnvelope
-    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-  }
-
-  export type StatusUpdateCreateNestedManyWithoutUserInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-  }
-
-  export type StatusViewCreateNestedManyWithoutViewerInput = {
-    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
-    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
-    createMany?: StatusViewCreateManyViewerInputEnvelope
-    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-  }
-
-  export type ContactCreateNestedManyWithoutContactInput = {
-    create?: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput> | ContactCreateWithoutContactInput[] | ContactUncheckedCreateWithoutContactInput[]
-    connectOrCreate?: ContactCreateOrConnectWithoutContactInput | ContactCreateOrConnectWithoutContactInput[]
-    createMany?: ContactCreateManyContactInputEnvelope
-    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-  }
-
-  export type ChatCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
-    createMany?: ChatCreateManyCreatorInputEnvelope
-    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
   }
 
   export type ReadReceiptCreateNestedManyWithoutUserInput = {
@@ -20872,11 +20779,32 @@ export namespace Prisma {
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
   }
 
+  export type CallCreateNestedManyWithoutCallerInput = {
+    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
+    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
+    createMany?: CallCreateManyCallerInputEnvelope
+    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+  }
+
   export type CallParticipantCreateNestedManyWithoutUserInput = {
     create?: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput> | CallParticipantCreateWithoutUserInput[] | CallParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CallParticipantCreateOrConnectWithoutUserInput | CallParticipantCreateOrConnectWithoutUserInput[]
     createMany?: CallParticipantCreateManyUserInputEnvelope
     connect?: CallParticipantWhereUniqueInput | CallParticipantWhereUniqueInput[]
+  }
+
+  export type StatusUpdateCreateNestedManyWithoutUserInput = {
+    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
+    createMany?: StatusUpdateCreateManyUserInputEnvelope
+    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+  }
+
+  export type StatusViewCreateNestedManyWithoutViewerInput = {
+    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
+    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
+    createMany?: StatusViewCreateManyViewerInputEnvelope
+    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -20907,6 +20835,13 @@ export namespace Prisma {
     connect?: BlockedUserWhereUniqueInput | BlockedUserWhereUniqueInput[]
   }
 
+  export type ChatUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
+    createMany?: ChatCreateManyCreatorInputEnvelope
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+  }
+
   export type ChatMemberUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ChatMemberCreateWithoutUserInput, ChatMemberUncheckedCreateWithoutUserInput> | ChatMemberCreateWithoutUserInput[] | ChatMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ChatMemberCreateOrConnectWithoutUserInput | ChatMemberCreateOrConnectWithoutUserInput[]
@@ -20919,41 +20854,6 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
     createMany?: MessageCreateManySenderInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-  }
-
-  export type CallUncheckedCreateNestedManyWithoutCallerInput = {
-    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
-    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
-    createMany?: CallCreateManyCallerInputEnvelope
-    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-  }
-
-  export type StatusUpdateUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-  }
-
-  export type StatusViewUncheckedCreateNestedManyWithoutViewerInput = {
-    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
-    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
-    createMany?: StatusViewCreateManyViewerInputEnvelope
-    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-  }
-
-  export type ContactUncheckedCreateNestedManyWithoutContactInput = {
-    create?: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput> | ContactCreateWithoutContactInput[] | ContactUncheckedCreateWithoutContactInput[]
-    connectOrCreate?: ContactCreateOrConnectWithoutContactInput | ContactCreateOrConnectWithoutContactInput[]
-    createMany?: ContactCreateManyContactInputEnvelope
-    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-  }
-
-  export type ChatUncheckedCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
-    createMany?: ChatCreateManyCreatorInputEnvelope
-    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
   }
 
   export type ReadReceiptUncheckedCreateNestedManyWithoutUserInput = {
@@ -20970,6 +20870,13 @@ export namespace Prisma {
     connect?: ReactionWhereUniqueInput | ReactionWhereUniqueInput[]
   }
 
+  export type CallUncheckedCreateNestedManyWithoutCallerInput = {
+    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
+    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
+    createMany?: CallCreateManyCallerInputEnvelope
+    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+  }
+
   export type CallParticipantUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput> | CallParticipantCreateWithoutUserInput[] | CallParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CallParticipantCreateOrConnectWithoutUserInput | CallParticipantCreateOrConnectWithoutUserInput[]
@@ -20977,8 +20884,18 @@ export namespace Prisma {
     connect?: CallParticipantWhereUniqueInput | CallParticipantWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type StatusUpdateUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
+    createMany?: StatusUpdateCreateManyUserInputEnvelope
+    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+  }
+
+  export type StatusViewUncheckedCreateNestedManyWithoutViewerInput = {
+    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
+    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
+    createMany?: StatusViewCreateManyViewerInputEnvelope
+    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -20987,10 +20904,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -21053,6 +20966,20 @@ export namespace Prisma {
     deleteMany?: BlockedUserScalarWhereInput | BlockedUserScalarWhereInput[]
   }
 
+  export type ChatUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
+    upsert?: ChatUpsertWithWhereUniqueWithoutCreatorInput | ChatUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: ChatCreateManyCreatorInputEnvelope
+    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    update?: ChatUpdateWithWhereUniqueWithoutCreatorInput | ChatUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: ChatUpdateManyWithWhereWithoutCreatorInput | ChatUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
+  }
+
   export type ChatMemberUpdateManyWithoutUserNestedInput = {
     create?: XOR<ChatMemberCreateWithoutUserInput, ChatMemberUncheckedCreateWithoutUserInput> | ChatMemberCreateWithoutUserInput[] | ChatMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ChatMemberCreateOrConnectWithoutUserInput | ChatMemberCreateOrConnectWithoutUserInput[]
@@ -21079,76 +21006,6 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
-  }
-
-  export type CallUpdateManyWithoutCallerNestedInput = {
-    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
-    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
-    upsert?: CallUpsertWithWhereUniqueWithoutCallerInput | CallUpsertWithWhereUniqueWithoutCallerInput[]
-    createMany?: CallCreateManyCallerInputEnvelope
-    set?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    disconnect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    delete?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    update?: CallUpdateWithWhereUniqueWithoutCallerInput | CallUpdateWithWhereUniqueWithoutCallerInput[]
-    updateMany?: CallUpdateManyWithWhereWithoutCallerInput | CallUpdateManyWithWhereWithoutCallerInput[]
-    deleteMany?: CallScalarWhereInput | CallScalarWhereInput[]
-  }
-
-  export type StatusUpdateUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
-  }
-
-  export type StatusViewUpdateManyWithoutViewerNestedInput = {
-    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
-    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
-    upsert?: StatusViewUpsertWithWhereUniqueWithoutViewerInput | StatusViewUpsertWithWhereUniqueWithoutViewerInput[]
-    createMany?: StatusViewCreateManyViewerInputEnvelope
-    set?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    disconnect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    delete?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    update?: StatusViewUpdateWithWhereUniqueWithoutViewerInput | StatusViewUpdateWithWhereUniqueWithoutViewerInput[]
-    updateMany?: StatusViewUpdateManyWithWhereWithoutViewerInput | StatusViewUpdateManyWithWhereWithoutViewerInput[]
-    deleteMany?: StatusViewScalarWhereInput | StatusViewScalarWhereInput[]
-  }
-
-  export type ContactUpdateManyWithoutContactNestedInput = {
-    create?: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput> | ContactCreateWithoutContactInput[] | ContactUncheckedCreateWithoutContactInput[]
-    connectOrCreate?: ContactCreateOrConnectWithoutContactInput | ContactCreateOrConnectWithoutContactInput[]
-    upsert?: ContactUpsertWithWhereUniqueWithoutContactInput | ContactUpsertWithWhereUniqueWithoutContactInput[]
-    createMany?: ContactCreateManyContactInputEnvelope
-    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    update?: ContactUpdateWithWhereUniqueWithoutContactInput | ContactUpdateWithWhereUniqueWithoutContactInput[]
-    updateMany?: ContactUpdateManyWithWhereWithoutContactInput | ContactUpdateManyWithWhereWithoutContactInput[]
-    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
-  }
-
-  export type ChatUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
-    upsert?: ChatUpsertWithWhereUniqueWithoutCreatorInput | ChatUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: ChatCreateManyCreatorInputEnvelope
-    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    update?: ChatUpdateWithWhereUniqueWithoutCreatorInput | ChatUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: ChatUpdateManyWithWhereWithoutCreatorInput | ChatUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
   }
 
   export type ReadReceiptUpdateManyWithoutUserNestedInput = {
@@ -21179,6 +21036,20 @@ export namespace Prisma {
     deleteMany?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
   }
 
+  export type CallUpdateManyWithoutCallerNestedInput = {
+    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
+    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
+    upsert?: CallUpsertWithWhereUniqueWithoutCallerInput | CallUpsertWithWhereUniqueWithoutCallerInput[]
+    createMany?: CallCreateManyCallerInputEnvelope
+    set?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    disconnect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    delete?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    update?: CallUpdateWithWhereUniqueWithoutCallerInput | CallUpdateWithWhereUniqueWithoutCallerInput[]
+    updateMany?: CallUpdateManyWithWhereWithoutCallerInput | CallUpdateManyWithWhereWithoutCallerInput[]
+    deleteMany?: CallScalarWhereInput | CallScalarWhereInput[]
+  }
+
   export type CallParticipantUpdateManyWithoutUserNestedInput = {
     create?: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput> | CallParticipantCreateWithoutUserInput[] | CallParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CallParticipantCreateOrConnectWithoutUserInput | CallParticipantCreateOrConnectWithoutUserInput[]
@@ -21191,6 +21062,34 @@ export namespace Prisma {
     update?: CallParticipantUpdateWithWhereUniqueWithoutUserInput | CallParticipantUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CallParticipantUpdateManyWithWhereWithoutUserInput | CallParticipantUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
+  }
+
+  export type StatusUpdateUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
+    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StatusUpdateCreateManyUserInputEnvelope
+    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
+  }
+
+  export type StatusViewUpdateManyWithoutViewerNestedInput = {
+    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
+    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
+    upsert?: StatusViewUpsertWithWhereUniqueWithoutViewerInput | StatusViewUpsertWithWhereUniqueWithoutViewerInput[]
+    createMany?: StatusViewCreateManyViewerInputEnvelope
+    set?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    disconnect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    delete?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    update?: StatusViewUpdateWithWhereUniqueWithoutViewerInput | StatusViewUpdateWithWhereUniqueWithoutViewerInput[]
+    updateMany?: StatusViewUpdateManyWithWhereWithoutViewerInput | StatusViewUpdateManyWithWhereWithoutViewerInput[]
+    deleteMany?: StatusViewScalarWhereInput | StatusViewScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -21257,6 +21156,20 @@ export namespace Prisma {
     deleteMany?: BlockedUserScalarWhereInput | BlockedUserScalarWhereInput[]
   }
 
+  export type ChatUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
+    upsert?: ChatUpsertWithWhereUniqueWithoutCreatorInput | ChatUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: ChatCreateManyCreatorInputEnvelope
+    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
+    update?: ChatUpdateWithWhereUniqueWithoutCreatorInput | ChatUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: ChatUpdateManyWithWhereWithoutCreatorInput | ChatUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
+  }
+
   export type ChatMemberUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ChatMemberCreateWithoutUserInput, ChatMemberUncheckedCreateWithoutUserInput> | ChatMemberCreateWithoutUserInput[] | ChatMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ChatMemberCreateOrConnectWithoutUserInput | ChatMemberCreateOrConnectWithoutUserInput[]
@@ -21283,76 +21196,6 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutSenderInput | MessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutSenderInput | MessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
-  }
-
-  export type CallUncheckedUpdateManyWithoutCallerNestedInput = {
-    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
-    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
-    upsert?: CallUpsertWithWhereUniqueWithoutCallerInput | CallUpsertWithWhereUniqueWithoutCallerInput[]
-    createMany?: CallCreateManyCallerInputEnvelope
-    set?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    disconnect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    delete?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
-    update?: CallUpdateWithWhereUniqueWithoutCallerInput | CallUpdateWithWhereUniqueWithoutCallerInput[]
-    updateMany?: CallUpdateManyWithWhereWithoutCallerInput | CallUpdateManyWithWhereWithoutCallerInput[]
-    deleteMany?: CallScalarWhereInput | CallScalarWhereInput[]
-  }
-
-  export type StatusUpdateUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
-    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StatusUpdateCreateManyUserInputEnvelope
-    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
-    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
-  }
-
-  export type StatusViewUncheckedUpdateManyWithoutViewerNestedInput = {
-    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
-    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
-    upsert?: StatusViewUpsertWithWhereUniqueWithoutViewerInput | StatusViewUpsertWithWhereUniqueWithoutViewerInput[]
-    createMany?: StatusViewCreateManyViewerInputEnvelope
-    set?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    disconnect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    delete?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
-    update?: StatusViewUpdateWithWhereUniqueWithoutViewerInput | StatusViewUpdateWithWhereUniqueWithoutViewerInput[]
-    updateMany?: StatusViewUpdateManyWithWhereWithoutViewerInput | StatusViewUpdateManyWithWhereWithoutViewerInput[]
-    deleteMany?: StatusViewScalarWhereInput | StatusViewScalarWhereInput[]
-  }
-
-  export type ContactUncheckedUpdateManyWithoutContactNestedInput = {
-    create?: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput> | ContactCreateWithoutContactInput[] | ContactUncheckedCreateWithoutContactInput[]
-    connectOrCreate?: ContactCreateOrConnectWithoutContactInput | ContactCreateOrConnectWithoutContactInput[]
-    upsert?: ContactUpsertWithWhereUniqueWithoutContactInput | ContactUpsertWithWhereUniqueWithoutContactInput[]
-    createMany?: ContactCreateManyContactInputEnvelope
-    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
-    update?: ContactUpdateWithWhereUniqueWithoutContactInput | ContactUpdateWithWhereUniqueWithoutContactInput[]
-    updateMany?: ContactUpdateManyWithWhereWithoutContactInput | ContactUpdateManyWithWhereWithoutContactInput[]
-    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
-  }
-
-  export type ChatUncheckedUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput> | ChatCreateWithoutCreatorInput[] | ChatUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: ChatCreateOrConnectWithoutCreatorInput | ChatCreateOrConnectWithoutCreatorInput[]
-    upsert?: ChatUpsertWithWhereUniqueWithoutCreatorInput | ChatUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: ChatCreateManyCreatorInputEnvelope
-    set?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    disconnect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    delete?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    connect?: ChatWhereUniqueInput | ChatWhereUniqueInput[]
-    update?: ChatUpdateWithWhereUniqueWithoutCreatorInput | ChatUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: ChatUpdateManyWithWhereWithoutCreatorInput | ChatUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: ChatScalarWhereInput | ChatScalarWhereInput[]
   }
 
   export type ReadReceiptUncheckedUpdateManyWithoutUserNestedInput = {
@@ -21383,6 +21226,20 @@ export namespace Prisma {
     deleteMany?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
   }
 
+  export type CallUncheckedUpdateManyWithoutCallerNestedInput = {
+    create?: XOR<CallCreateWithoutCallerInput, CallUncheckedCreateWithoutCallerInput> | CallCreateWithoutCallerInput[] | CallUncheckedCreateWithoutCallerInput[]
+    connectOrCreate?: CallCreateOrConnectWithoutCallerInput | CallCreateOrConnectWithoutCallerInput[]
+    upsert?: CallUpsertWithWhereUniqueWithoutCallerInput | CallUpsertWithWhereUniqueWithoutCallerInput[]
+    createMany?: CallCreateManyCallerInputEnvelope
+    set?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    disconnect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    delete?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
+    update?: CallUpdateWithWhereUniqueWithoutCallerInput | CallUpdateWithWhereUniqueWithoutCallerInput[]
+    updateMany?: CallUpdateManyWithWhereWithoutCallerInput | CallUpdateManyWithWhereWithoutCallerInput[]
+    deleteMany?: CallScalarWhereInput | CallScalarWhereInput[]
+  }
+
   export type CallParticipantUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput> | CallParticipantCreateWithoutUserInput[] | CallParticipantUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CallParticipantCreateOrConnectWithoutUserInput | CallParticipantCreateOrConnectWithoutUserInput[]
@@ -21397,16 +21254,54 @@ export namespace Prisma {
     deleteMany?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
   }
 
+  export type StatusUpdateUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StatusUpdateCreateWithoutUserInput, StatusUpdateUncheckedCreateWithoutUserInput> | StatusUpdateCreateWithoutUserInput[] | StatusUpdateUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StatusUpdateCreateOrConnectWithoutUserInput | StatusUpdateCreateOrConnectWithoutUserInput[]
+    upsert?: StatusUpdateUpsertWithWhereUniqueWithoutUserInput | StatusUpdateUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StatusUpdateCreateManyUserInputEnvelope
+    set?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    disconnect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    delete?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    connect?: StatusUpdateWhereUniqueInput | StatusUpdateWhereUniqueInput[]
+    update?: StatusUpdateUpdateWithWhereUniqueWithoutUserInput | StatusUpdateUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StatusUpdateUpdateManyWithWhereWithoutUserInput | StatusUpdateUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StatusUpdateScalarWhereInput | StatusUpdateScalarWhereInput[]
+  }
+
+  export type StatusViewUncheckedUpdateManyWithoutViewerNestedInput = {
+    create?: XOR<StatusViewCreateWithoutViewerInput, StatusViewUncheckedCreateWithoutViewerInput> | StatusViewCreateWithoutViewerInput[] | StatusViewUncheckedCreateWithoutViewerInput[]
+    connectOrCreate?: StatusViewCreateOrConnectWithoutViewerInput | StatusViewCreateOrConnectWithoutViewerInput[]
+    upsert?: StatusViewUpsertWithWhereUniqueWithoutViewerInput | StatusViewUpsertWithWhereUniqueWithoutViewerInput[]
+    createMany?: StatusViewCreateManyViewerInputEnvelope
+    set?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    disconnect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    delete?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    connect?: StatusViewWhereUniqueInput | StatusViewWhereUniqueInput[]
+    update?: StatusViewUpdateWithWhereUniqueWithoutViewerInput | StatusViewUpdateWithWhereUniqueWithoutViewerInput[]
+    updateMany?: StatusViewUpdateManyWithWhereWithoutViewerInput | StatusViewUpdateManyWithWhereWithoutViewerInput[]
+    deleteMany?: StatusViewScalarWhereInput | StatusViewScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneWithoutSessionsNestedInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
     upsert?: UserUpsertWithoutSessionsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
@@ -21417,26 +21312,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutContactInput = {
-    create?: XOR<UserCreateWithoutContactInput, UserUncheckedCreateWithoutContactInput>
-    connectOrCreate?: UserCreateOrConnectWithoutContactInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutContactsNestedInput = {
+  export type UserUpdateOneWithoutContactsNestedInput = {
     create?: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
     connectOrCreate?: UserCreateOrConnectWithoutContactsInput
     upsert?: UserUpsertWithoutContactsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContactsInput, UserUpdateWithoutContactsInput>, UserUncheckedUpdateWithoutContactsInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutContactNestedInput = {
-    create?: XOR<UserCreateWithoutContactInput, UserUncheckedCreateWithoutContactInput>
-    connectOrCreate?: UserCreateOrConnectWithoutContactInput
-    upsert?: UserUpsertWithoutContactInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContactInput, UserUpdateWithoutContactInput>, UserUncheckedUpdateWithoutContactInput>
   }
 
   export type UserCreateNestedOneWithoutBlockedUsersInput = {
@@ -21451,25 +21334,29 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutBlockedUsersNestedInput = {
+  export type UserUpdateOneWithoutBlockedUsersNestedInput = {
     create?: XOR<UserCreateWithoutBlockedUsersInput, UserUncheckedCreateWithoutBlockedUsersInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlockedUsersInput
     upsert?: UserUpsertWithoutBlockedUsersInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlockedUsersInput, UserUpdateWithoutBlockedUsersInput>, UserUncheckedUpdateWithoutBlockedUsersInput>
   }
 
-  export type UserUpdateOneRequiredWithoutBlockedByNestedInput = {
+  export type UserUpdateOneWithoutBlockedByNestedInput = {
     create?: XOR<UserCreateWithoutBlockedByInput, UserUncheckedCreateWithoutBlockedByInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlockedByInput
     upsert?: UserUpsertWithoutBlockedByInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlockedByInput, UserUpdateWithoutBlockedByInput>, UserUncheckedUpdateWithoutBlockedByInput>
   }
 
-  export type UserCreateNestedOneWithoutChatInput = {
-    create?: XOR<UserCreateWithoutChatInput, UserUncheckedCreateWithoutChatInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatInput
+  export type UserCreateNestedOneWithoutCreatedChatsInput = {
+    create?: XOR<UserCreateWithoutCreatedChatsInput, UserUncheckedCreateWithoutCreatedChatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedChatsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21515,14 +21402,14 @@ export namespace Prisma {
     connect?: CallWhereUniqueInput | CallWhereUniqueInput[]
   }
 
-  export type UserUpdateOneWithoutChatNestedInput = {
-    create?: XOR<UserCreateWithoutChatInput, UserUncheckedCreateWithoutChatInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatInput
-    upsert?: UserUpsertWithoutChatInput
+  export type UserUpdateOneWithoutCreatedChatsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedChatsInput, UserUncheckedCreateWithoutCreatedChatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedChatsInput
+    upsert?: UserUpsertWithoutCreatedChatsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatInput, UserUpdateWithoutChatInput>, UserUncheckedUpdateWithoutChatInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedChatsInput, UserUpdateWithoutCreatedChatsInput>, UserUncheckedUpdateWithoutCreatedChatsInput>
   }
 
   export type ChatMemberUpdateManyWithoutChatNestedInput = {
@@ -21623,9 +21510,9 @@ export namespace Prisma {
     connect?: ChatWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutChatsInput = {
-    create?: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatsInput
+  export type UserCreateNestedOneWithoutChatMembersInput = {
+    create?: XOR<UserCreateWithoutChatMembersInput, UserUncheckedCreateWithoutChatMembersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChatMembersInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21641,12 +21528,12 @@ export namespace Prisma {
     update?: XOR<XOR<ChatUpdateToOneWithWhereWithoutMembersInput, ChatUpdateWithoutMembersInput>, ChatUncheckedUpdateWithoutMembersInput>
   }
 
-  export type UserUpdateOneRequiredWithoutChatsNestedInput = {
-    create?: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatsInput
-    upsert?: UserUpsertWithoutChatsInput
+  export type UserUpdateOneRequiredWithoutChatMembersNestedInput = {
+    create?: XOR<UserCreateWithoutChatMembersInput, UserUncheckedCreateWithoutChatMembersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChatMembersInput
+    upsert?: UserUpsertWithoutChatMembersInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatsInput, UserUpdateWithoutChatsInput>, UserUncheckedUpdateWithoutChatsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatMembersInput, UserUpdateWithoutChatMembersInput>, UserUncheckedUpdateWithoutChatMembersInput>
   }
 
   export type ChatCreateNestedOneWithoutMessagesInput = {
@@ -21655,9 +21542,9 @@ export namespace Prisma {
     connect?: ChatWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutMessagesInput = {
-    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
+  export type UserCreateNestedOneWithoutSentMessagesInput = {
+    create?: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentMessagesInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21717,12 +21604,12 @@ export namespace Prisma {
     update?: XOR<XOR<ChatUpdateToOneWithWhereWithoutMessagesInput, ChatUpdateWithoutMessagesInput>, ChatUncheckedUpdateWithoutMessagesInput>
   }
 
-  export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
-    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
-    upsert?: UserUpsertWithoutMessagesInput
+  export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentMessagesInput
+    upsert?: UserUpsertWithoutSentMessagesInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
   export type MessageUpdateOneWithoutRepliesNestedInput = {
@@ -21825,9 +21712,9 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutReadReceiptInput = {
-    create?: XOR<UserCreateWithoutReadReceiptInput, UserUncheckedCreateWithoutReadReceiptInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReadReceiptInput
+  export type UserCreateNestedOneWithoutReadReceiptsInput = {
+    create?: XOR<UserCreateWithoutReadReceiptsInput, UserUncheckedCreateWithoutReadReceiptsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReadReceiptsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21839,12 +21726,12 @@ export namespace Prisma {
     update?: XOR<XOR<MessageUpdateToOneWithWhereWithoutReadByInput, MessageUpdateWithoutReadByInput>, MessageUncheckedUpdateWithoutReadByInput>
   }
 
-  export type UserUpdateOneRequiredWithoutReadReceiptNestedInput = {
-    create?: XOR<UserCreateWithoutReadReceiptInput, UserUncheckedCreateWithoutReadReceiptInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReadReceiptInput
-    upsert?: UserUpsertWithoutReadReceiptInput
+  export type UserUpdateOneRequiredWithoutReadReceiptsNestedInput = {
+    create?: XOR<UserCreateWithoutReadReceiptsInput, UserUncheckedCreateWithoutReadReceiptsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReadReceiptsInput
+    upsert?: UserUpsertWithoutReadReceiptsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReadReceiptInput, UserUpdateWithoutReadReceiptInput>, UserUncheckedUpdateWithoutReadReceiptInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReadReceiptsInput, UserUpdateWithoutReadReceiptsInput>, UserUncheckedUpdateWithoutReadReceiptsInput>
   }
 
   export type MessageCreateNestedOneWithoutReactionsInput = {
@@ -21853,9 +21740,9 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutReactionInput = {
-    create?: XOR<UserCreateWithoutReactionInput, UserUncheckedCreateWithoutReactionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReactionInput
+  export type UserCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<UserCreateWithoutReactionsInput, UserUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReactionsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21867,12 +21754,12 @@ export namespace Prisma {
     update?: XOR<XOR<MessageUpdateToOneWithWhereWithoutReactionsInput, MessageUpdateWithoutReactionsInput>, MessageUncheckedUpdateWithoutReactionsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutReactionNestedInput = {
-    create?: XOR<UserCreateWithoutReactionInput, UserUncheckedCreateWithoutReactionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReactionInput
-    upsert?: UserUpsertWithoutReactionInput
+  export type UserUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<UserCreateWithoutReactionsInput, UserUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReactionsInput
+    upsert?: UserUpsertWithoutReactionsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReactionInput, UserUpdateWithoutReactionInput>, UserUncheckedUpdateWithoutReactionInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReactionsInput, UserUpdateWithoutReactionsInput>, UserUncheckedUpdateWithoutReactionsInput>
   }
 
   export type ChatCreateNestedOneWithoutCallsInput = {
@@ -21959,9 +21846,9 @@ export namespace Prisma {
     connect?: CallWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutCallParticipantInput = {
-    create?: XOR<UserCreateWithoutCallParticipantInput, UserUncheckedCreateWithoutCallParticipantInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCallParticipantInput
+  export type UserCreateNestedOneWithoutCallParticipantsInput = {
+    create?: XOR<UserCreateWithoutCallParticipantsInput, UserUncheckedCreateWithoutCallParticipantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCallParticipantsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21977,12 +21864,12 @@ export namespace Prisma {
     update?: XOR<XOR<CallUpdateToOneWithWhereWithoutParticipantsInput, CallUpdateWithoutParticipantsInput>, CallUncheckedUpdateWithoutParticipantsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutCallParticipantNestedInput = {
-    create?: XOR<UserCreateWithoutCallParticipantInput, UserUncheckedCreateWithoutCallParticipantInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCallParticipantInput
-    upsert?: UserUpsertWithoutCallParticipantInput
+  export type UserUpdateOneRequiredWithoutCallParticipantsNestedInput = {
+    create?: XOR<UserCreateWithoutCallParticipantsInput, UserUncheckedCreateWithoutCallParticipantsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCallParticipantsInput
+    upsert?: UserUpsertWithoutCallParticipantsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCallParticipantInput, UserUpdateWithoutCallParticipantInput>, UserUncheckedUpdateWithoutCallParticipantInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCallParticipantsInput, UserUpdateWithoutCallParticipantsInput>, UserUncheckedUpdateWithoutCallParticipantsInput>
   }
 
   export type UserCreateNestedOneWithoutStatusUpdatesInput = {
@@ -22080,20 +21967,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -22117,11 +21990,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -22160,23 +22028,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22221,14 +22072,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -22241,6 +22084,50 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22369,10 +22256,10 @@ export namespace Prisma {
   }
 
   export type ContactCreateWithoutUserInput = {
+    contactId: number
     name?: string | null
     isFavorite?: boolean
     createdAt?: Date | string
-    contact: UserCreateNestedOneWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutUserInput = {
@@ -22395,7 +22282,7 @@ export namespace Prisma {
 
   export type BlockedUserCreateWithoutUserInput = {
     createdAt?: Date | string
-    blockedUser: UserCreateNestedOneWithoutBlockedByInput
+    blockedUser?: UserCreateNestedOneWithoutBlockedByInput
   }
 
   export type BlockedUserUncheckedCreateWithoutUserInput = {
@@ -22416,7 +22303,7 @@ export namespace Prisma {
 
   export type BlockedUserCreateWithoutBlockedUserInput = {
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutBlockedUsersInput
+    user?: UserCreateNestedOneWithoutBlockedUsersInput
   }
 
   export type BlockedUserUncheckedCreateWithoutBlockedUserInput = {
@@ -22432,6 +22319,41 @@ export namespace Prisma {
 
   export type BlockedUserCreateManyBlockedUserInputEnvelope = {
     data: BlockedUserCreateManyBlockedUserInput | BlockedUserCreateManyBlockedUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChatCreateWithoutCreatorInput = {
+    name?: string | null
+    description?: string | null
+    isGroup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    picture?: string | null
+    members?: ChatMemberCreateNestedManyWithoutChatInput
+    messages?: MessageCreateNestedManyWithoutChatInput
+    calls?: CallCreateNestedManyWithoutChatInput
+  }
+
+  export type ChatUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    name?: string | null
+    description?: string | null
+    isGroup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    picture?: string | null
+    members?: ChatMemberUncheckedCreateNestedManyWithoutChatInput
+    messages?: MessageUncheckedCreateNestedManyWithoutChatInput
+    calls?: CallUncheckedCreateNestedManyWithoutChatInput
+  }
+
+  export type ChatCreateOrConnectWithoutCreatorInput = {
+    where: ChatWhereUniqueInput
+    create: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type ChatCreateManyCreatorInputEnvelope = {
+    data: ChatCreateManyCreatorInput | ChatCreateManyCreatorInput[]
     skipDuplicates?: boolean
   }
 
@@ -22499,6 +22421,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReadReceiptCreateWithoutUserInput = {
+    readAt?: Date | string
+    message: MessageCreateNestedOneWithoutReadByInput
+  }
+
+  export type ReadReceiptUncheckedCreateWithoutUserInput = {
+    id?: number
+    messageId: number
+    readAt?: Date | string
+  }
+
+  export type ReadReceiptCreateOrConnectWithoutUserInput = {
+    where: ReadReceiptWhereUniqueInput
+    create: XOR<ReadReceiptCreateWithoutUserInput, ReadReceiptUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReadReceiptCreateManyUserInputEnvelope = {
+    data: ReadReceiptCreateManyUserInput | ReadReceiptCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReactionCreateWithoutUserInput = {
+    emoji: string
+    createdAt?: Date | string
+    message: MessageCreateNestedOneWithoutReactionsInput
+  }
+
+  export type ReactionUncheckedCreateWithoutUserInput = {
+    id?: number
+    messageId: number
+    emoji: string
+    createdAt?: Date | string
+  }
+
+  export type ReactionCreateOrConnectWithoutUserInput = {
+    where: ReactionWhereUniqueInput
+    create: XOR<ReactionCreateWithoutUserInput, ReactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReactionCreateManyUserInputEnvelope = {
+    data: ReactionCreateManyUserInput | ReactionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CallCreateWithoutCallerInput = {
     type?: $Enums.CallType
     status?: $Enums.CallStatus
@@ -22525,6 +22491,31 @@ export namespace Prisma {
 
   export type CallCreateManyCallerInputEnvelope = {
     data: CallCreateManyCallerInput | CallCreateManyCallerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CallParticipantCreateWithoutUserInput = {
+    joinedAt?: Date | string
+    leftAt?: Date | string | null
+    status?: $Enums.CallParticipantStatus
+    call: CallCreateNestedOneWithoutParticipantsInput
+  }
+
+  export type CallParticipantUncheckedCreateWithoutUserInput = {
+    id?: number
+    callId: number
+    joinedAt?: Date | string
+    leftAt?: Date | string | null
+    status?: $Enums.CallParticipantStatus
+  }
+
+  export type CallParticipantCreateOrConnectWithoutUserInput = {
+    where: CallParticipantWhereUniqueInput
+    create: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type CallParticipantCreateManyUserInputEnvelope = {
+    data: CallParticipantCreateManyUserInput | CallParticipantCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -22575,135 +22566,6 @@ export namespace Prisma {
 
   export type StatusViewCreateManyViewerInputEnvelope = {
     data: StatusViewCreateManyViewerInput | StatusViewCreateManyViewerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ContactCreateWithoutContactInput = {
-    name?: string | null
-    isFavorite?: boolean
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutContactsInput
-  }
-
-  export type ContactUncheckedCreateWithoutContactInput = {
-    id?: number
-    userId: number
-    name?: string | null
-    isFavorite?: boolean
-    createdAt?: Date | string
-  }
-
-  export type ContactCreateOrConnectWithoutContactInput = {
-    where: ContactWhereUniqueInput
-    create: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput>
-  }
-
-  export type ContactCreateManyContactInputEnvelope = {
-    data: ContactCreateManyContactInput | ContactCreateManyContactInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ChatCreateWithoutCreatorInput = {
-    name?: string | null
-    description?: string | null
-    isGroup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    picture?: string | null
-    members?: ChatMemberCreateNestedManyWithoutChatInput
-    messages?: MessageCreateNestedManyWithoutChatInput
-    calls?: CallCreateNestedManyWithoutChatInput
-  }
-
-  export type ChatUncheckedCreateWithoutCreatorInput = {
-    id?: number
-    name?: string | null
-    description?: string | null
-    isGroup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    picture?: string | null
-    members?: ChatMemberUncheckedCreateNestedManyWithoutChatInput
-    messages?: MessageUncheckedCreateNestedManyWithoutChatInput
-    calls?: CallUncheckedCreateNestedManyWithoutChatInput
-  }
-
-  export type ChatCreateOrConnectWithoutCreatorInput = {
-    where: ChatWhereUniqueInput
-    create: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type ChatCreateManyCreatorInputEnvelope = {
-    data: ChatCreateManyCreatorInput | ChatCreateManyCreatorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReadReceiptCreateWithoutUserInput = {
-    readAt?: Date | string
-    message: MessageCreateNestedOneWithoutReadByInput
-  }
-
-  export type ReadReceiptUncheckedCreateWithoutUserInput = {
-    id?: number
-    messageId: number
-    readAt?: Date | string
-  }
-
-  export type ReadReceiptCreateOrConnectWithoutUserInput = {
-    where: ReadReceiptWhereUniqueInput
-    create: XOR<ReadReceiptCreateWithoutUserInput, ReadReceiptUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReadReceiptCreateManyUserInputEnvelope = {
-    data: ReadReceiptCreateManyUserInput | ReadReceiptCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReactionCreateWithoutUserInput = {
-    emoji: string
-    createdAt?: Date | string
-    message: MessageCreateNestedOneWithoutReactionsInput
-  }
-
-  export type ReactionUncheckedCreateWithoutUserInput = {
-    id?: number
-    messageId: number
-    emoji: string
-    createdAt?: Date | string
-  }
-
-  export type ReactionCreateOrConnectWithoutUserInput = {
-    where: ReactionWhereUniqueInput
-    create: XOR<ReactionCreateWithoutUserInput, ReactionUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReactionCreateManyUserInputEnvelope = {
-    data: ReactionCreateManyUserInput | ReactionCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CallParticipantCreateWithoutUserInput = {
-    joinedAt?: Date | string
-    leftAt?: Date | string | null
-    status?: $Enums.CallParticipantStatus
-    call: CallCreateNestedOneWithoutParticipantsInput
-  }
-
-  export type CallParticipantUncheckedCreateWithoutUserInput = {
-    id?: number
-    callId: number
-    joinedAt?: Date | string
-    leftAt?: Date | string | null
-    status?: $Enums.CallParticipantStatus
-  }
-
-  export type CallParticipantCreateOrConnectWithoutUserInput = {
-    where: CallParticipantWhereUniqueInput
-    create: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput>
-  }
-
-  export type CallParticipantCreateManyUserInputEnvelope = {
-    data: CallParticipantCreateManyUserInput | CallParticipantCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -22807,6 +22669,36 @@ export namespace Prisma {
     data: XOR<BlockedUserUpdateManyMutationInput, BlockedUserUncheckedUpdateManyWithoutBlockedUserInput>
   }
 
+  export type ChatUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: ChatWhereUniqueInput
+    update: XOR<ChatUpdateWithoutCreatorInput, ChatUncheckedUpdateWithoutCreatorInput>
+    create: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type ChatUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: ChatWhereUniqueInput
+    data: XOR<ChatUpdateWithoutCreatorInput, ChatUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type ChatUpdateManyWithWhereWithoutCreatorInput = {
+    where: ChatScalarWhereInput
+    data: XOR<ChatUpdateManyMutationInput, ChatUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type ChatScalarWhereInput = {
+    AND?: ChatScalarWhereInput | ChatScalarWhereInput[]
+    OR?: ChatScalarWhereInput[]
+    NOT?: ChatScalarWhereInput | ChatScalarWhereInput[]
+    id?: IntFilter<"Chat"> | number
+    name?: StringNullableFilter<"Chat"> | string | null
+    description?: StringNullableFilter<"Chat"> | string | null
+    isGroup?: BoolFilter<"Chat"> | boolean
+    createdAt?: DateTimeFilter<"Chat"> | Date | string
+    updatedAt?: DateTimeFilter<"Chat"> | Date | string
+    createdBy?: IntNullableFilter<"Chat"> | number | null
+    picture?: StringNullableFilter<"Chat"> | string | null
+  }
+
   export type ChatMemberUpsertWithWhereUniqueWithoutUserInput = {
     where: ChatMemberWhereUniqueInput
     update: XOR<ChatMemberUpdateWithoutUserInput, ChatMemberUncheckedUpdateWithoutUserInput>
@@ -22867,6 +22759,59 @@ export namespace Prisma {
     replyToId?: IntNullableFilter<"Message"> | number | null
   }
 
+  export type ReadReceiptUpsertWithWhereUniqueWithoutUserInput = {
+    where: ReadReceiptWhereUniqueInput
+    update: XOR<ReadReceiptUpdateWithoutUserInput, ReadReceiptUncheckedUpdateWithoutUserInput>
+    create: XOR<ReadReceiptCreateWithoutUserInput, ReadReceiptUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReadReceiptUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReadReceiptWhereUniqueInput
+    data: XOR<ReadReceiptUpdateWithoutUserInput, ReadReceiptUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ReadReceiptUpdateManyWithWhereWithoutUserInput = {
+    where: ReadReceiptScalarWhereInput
+    data: XOR<ReadReceiptUpdateManyMutationInput, ReadReceiptUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ReadReceiptScalarWhereInput = {
+    AND?: ReadReceiptScalarWhereInput | ReadReceiptScalarWhereInput[]
+    OR?: ReadReceiptScalarWhereInput[]
+    NOT?: ReadReceiptScalarWhereInput | ReadReceiptScalarWhereInput[]
+    id?: IntFilter<"ReadReceipt"> | number
+    messageId?: IntFilter<"ReadReceipt"> | number
+    userId?: IntFilter<"ReadReceipt"> | number
+    readAt?: DateTimeFilter<"ReadReceipt"> | Date | string
+  }
+
+  export type ReactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: ReactionWhereUniqueInput
+    update: XOR<ReactionUpdateWithoutUserInput, ReactionUncheckedUpdateWithoutUserInput>
+    create: XOR<ReactionCreateWithoutUserInput, ReactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReactionWhereUniqueInput
+    data: XOR<ReactionUpdateWithoutUserInput, ReactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ReactionUpdateManyWithWhereWithoutUserInput = {
+    where: ReactionScalarWhereInput
+    data: XOR<ReactionUpdateManyMutationInput, ReactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ReactionScalarWhereInput = {
+    AND?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
+    OR?: ReactionScalarWhereInput[]
+    NOT?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
+    id?: IntFilter<"Reaction"> | number
+    messageId?: IntFilter<"Reaction"> | number
+    userId?: IntFilter<"Reaction"> | number
+    emoji?: StringFilter<"Reaction"> | string
+    createdAt?: DateTimeFilter<"Reaction"> | Date | string
+  }
+
   export type CallUpsertWithWhereUniqueWithoutCallerInput = {
     where: CallWhereUniqueInput
     update: XOR<CallUpdateWithoutCallerInput, CallUncheckedUpdateWithoutCallerInput>
@@ -22894,6 +22839,34 @@ export namespace Prisma {
     status?: EnumCallStatusFilter<"Call"> | $Enums.CallStatus
     startedAt?: DateTimeFilter<"Call"> | Date | string
     endedAt?: DateTimeNullableFilter<"Call"> | Date | string | null
+  }
+
+  export type CallParticipantUpsertWithWhereUniqueWithoutUserInput = {
+    where: CallParticipantWhereUniqueInput
+    update: XOR<CallParticipantUpdateWithoutUserInput, CallParticipantUncheckedUpdateWithoutUserInput>
+    create: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type CallParticipantUpdateWithWhereUniqueWithoutUserInput = {
+    where: CallParticipantWhereUniqueInput
+    data: XOR<CallParticipantUpdateWithoutUserInput, CallParticipantUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CallParticipantUpdateManyWithWhereWithoutUserInput = {
+    where: CallParticipantScalarWhereInput
+    data: XOR<CallParticipantUpdateManyMutationInput, CallParticipantUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CallParticipantScalarWhereInput = {
+    AND?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
+    OR?: CallParticipantScalarWhereInput[]
+    NOT?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
+    id?: IntFilter<"CallParticipant"> | number
+    callId?: IntFilter<"CallParticipant"> | number
+    userId?: IntFilter<"CallParticipant"> | number
+    joinedAt?: DateTimeFilter<"CallParticipant"> | Date | string
+    leftAt?: DateTimeNullableFilter<"CallParticipant"> | Date | string | null
+    status?: EnumCallParticipantStatusFilter<"CallParticipant"> | $Enums.CallParticipantStatus
   }
 
   export type StatusUpdateUpsertWithWhereUniqueWithoutUserInput = {
@@ -22951,186 +22924,51 @@ export namespace Prisma {
     viewedAt?: DateTimeFilter<"StatusView"> | Date | string
   }
 
-  export type ContactUpsertWithWhereUniqueWithoutContactInput = {
-    where: ContactWhereUniqueInput
-    update: XOR<ContactUpdateWithoutContactInput, ContactUncheckedUpdateWithoutContactInput>
-    create: XOR<ContactCreateWithoutContactInput, ContactUncheckedCreateWithoutContactInput>
-  }
-
-  export type ContactUpdateWithWhereUniqueWithoutContactInput = {
-    where: ContactWhereUniqueInput
-    data: XOR<ContactUpdateWithoutContactInput, ContactUncheckedUpdateWithoutContactInput>
-  }
-
-  export type ContactUpdateManyWithWhereWithoutContactInput = {
-    where: ContactScalarWhereInput
-    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyWithoutContactInput>
-  }
-
-  export type ChatUpsertWithWhereUniqueWithoutCreatorInput = {
-    where: ChatWhereUniqueInput
-    update: XOR<ChatUpdateWithoutCreatorInput, ChatUncheckedUpdateWithoutCreatorInput>
-    create: XOR<ChatCreateWithoutCreatorInput, ChatUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type ChatUpdateWithWhereUniqueWithoutCreatorInput = {
-    where: ChatWhereUniqueInput
-    data: XOR<ChatUpdateWithoutCreatorInput, ChatUncheckedUpdateWithoutCreatorInput>
-  }
-
-  export type ChatUpdateManyWithWhereWithoutCreatorInput = {
-    where: ChatScalarWhereInput
-    data: XOR<ChatUpdateManyMutationInput, ChatUncheckedUpdateManyWithoutCreatorInput>
-  }
-
-  export type ChatScalarWhereInput = {
-    AND?: ChatScalarWhereInput | ChatScalarWhereInput[]
-    OR?: ChatScalarWhereInput[]
-    NOT?: ChatScalarWhereInput | ChatScalarWhereInput[]
-    id?: IntFilter<"Chat"> | number
-    name?: StringNullableFilter<"Chat"> | string | null
-    description?: StringNullableFilter<"Chat"> | string | null
-    isGroup?: BoolFilter<"Chat"> | boolean
-    createdAt?: DateTimeFilter<"Chat"> | Date | string
-    updatedAt?: DateTimeFilter<"Chat"> | Date | string
-    createdBy?: IntNullableFilter<"Chat"> | number | null
-    picture?: StringNullableFilter<"Chat"> | string | null
-  }
-
-  export type ReadReceiptUpsertWithWhereUniqueWithoutUserInput = {
-    where: ReadReceiptWhereUniqueInput
-    update: XOR<ReadReceiptUpdateWithoutUserInput, ReadReceiptUncheckedUpdateWithoutUserInput>
-    create: XOR<ReadReceiptCreateWithoutUserInput, ReadReceiptUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReadReceiptUpdateWithWhereUniqueWithoutUserInput = {
-    where: ReadReceiptWhereUniqueInput
-    data: XOR<ReadReceiptUpdateWithoutUserInput, ReadReceiptUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ReadReceiptUpdateManyWithWhereWithoutUserInput = {
-    where: ReadReceiptScalarWhereInput
-    data: XOR<ReadReceiptUpdateManyMutationInput, ReadReceiptUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ReadReceiptScalarWhereInput = {
-    AND?: ReadReceiptScalarWhereInput | ReadReceiptScalarWhereInput[]
-    OR?: ReadReceiptScalarWhereInput[]
-    NOT?: ReadReceiptScalarWhereInput | ReadReceiptScalarWhereInput[]
-    id?: IntFilter<"ReadReceipt"> | number
-    messageId?: IntFilter<"ReadReceipt"> | number
-    userId?: IntFilter<"ReadReceipt"> | number
-    readAt?: DateTimeFilter<"ReadReceipt"> | Date | string
-  }
-
-  export type ReactionUpsertWithWhereUniqueWithoutUserInput = {
-    where: ReactionWhereUniqueInput
-    update: XOR<ReactionUpdateWithoutUserInput, ReactionUncheckedUpdateWithoutUserInput>
-    create: XOR<ReactionCreateWithoutUserInput, ReactionUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReactionUpdateWithWhereUniqueWithoutUserInput = {
-    where: ReactionWhereUniqueInput
-    data: XOR<ReactionUpdateWithoutUserInput, ReactionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ReactionUpdateManyWithWhereWithoutUserInput = {
-    where: ReactionScalarWhereInput
-    data: XOR<ReactionUpdateManyMutationInput, ReactionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ReactionScalarWhereInput = {
-    AND?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
-    OR?: ReactionScalarWhereInput[]
-    NOT?: ReactionScalarWhereInput | ReactionScalarWhereInput[]
-    id?: IntFilter<"Reaction"> | number
-    messageId?: IntFilter<"Reaction"> | number
-    userId?: IntFilter<"Reaction"> | number
-    emoji?: StringFilter<"Reaction"> | string
-    createdAt?: DateTimeFilter<"Reaction"> | Date | string
-  }
-
-  export type CallParticipantUpsertWithWhereUniqueWithoutUserInput = {
-    where: CallParticipantWhereUniqueInput
-    update: XOR<CallParticipantUpdateWithoutUserInput, CallParticipantUncheckedUpdateWithoutUserInput>
-    create: XOR<CallParticipantCreateWithoutUserInput, CallParticipantUncheckedCreateWithoutUserInput>
-  }
-
-  export type CallParticipantUpdateWithWhereUniqueWithoutUserInput = {
-    where: CallParticipantWhereUniqueInput
-    data: XOR<CallParticipantUpdateWithoutUserInput, CallParticipantUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CallParticipantUpdateManyWithWhereWithoutUserInput = {
-    where: CallParticipantScalarWhereInput
-    data: XOR<CallParticipantUpdateManyMutationInput, CallParticipantUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CallParticipantScalarWhereInput = {
-    AND?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
-    OR?: CallParticipantScalarWhereInput[]
-    NOT?: CallParticipantScalarWhereInput | CallParticipantScalarWhereInput[]
-    id?: IntFilter<"CallParticipant"> | number
-    callId?: IntFilter<"CallParticipant"> | number
-    userId?: IntFilter<"CallParticipant"> | number
-    joinedAt?: DateTimeFilter<"CallParticipant"> | Date | string
-    leftAt?: DateTimeNullableFilter<"CallParticipant"> | Date | string | null
-    status?: EnumCallParticipantStatusFilter<"CallParticipant"> | $Enums.CallParticipantStatus
-  }
-
   export type UserCreateWithoutSessionsInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -23150,178 +22988,102 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutSessionsInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutContactsInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutContactsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutContactsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
-  }
-
-  export type UserCreateWithoutContactInput = {
-    phoneNumber: string
-    email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
-    profilePicture?: string | null
-    status?: string
-    lastSeen?: Date | string | null
-    isOnline?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    contacts?: ContactCreateNestedManyWithoutUserInput
-    blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
-    blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
-    calls?: CallCreateNestedManyWithoutCallerInput
-    statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
-    statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutContactInput = {
-    id?: number
-    phoneNumber: string
-    email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
-    profilePicture?: string | null
-    status?: string
-    lastSeen?: Date | string | null
-    isOnline?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
-    blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
-    blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
-    calls?: CallUncheckedCreateNestedManyWithoutCallerInput
-    statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
-    statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutContactInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutContactInput, UserUncheckedCreateWithoutContactInput>
   }
 
   export type UserUpsertWithoutContactsInput = {
@@ -23336,179 +23098,97 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutContactsInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUpsertWithoutContactInput = {
-    update: XOR<UserUpdateWithoutContactInput, UserUncheckedUpdateWithoutContactInput>
-    create: XOR<UserCreateWithoutContactInput, UserUncheckedCreateWithoutContactInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutContactInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutContactInput, UserUncheckedUpdateWithoutContactInput>
-  }
-
-  export type UserUpdateWithoutContactInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    contacts?: ContactUpdateManyWithoutUserNestedInput
-    blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
-    blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
-    calls?: CallUpdateManyWithoutCallerNestedInput
-    statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
-    statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutContactInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
-    blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
-    blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
-    calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
-    statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
-    statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBlockedUsersInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlockedUsersInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlockedUsersInput = {
@@ -23517,58 +23197,50 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutBlockedByInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlockedByInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlockedByInput = {
@@ -23588,58 +23260,50 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutBlockedUsersInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlockedUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutBlockedByInput = {
@@ -23654,125 +23318,109 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutBlockedByInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlockedByInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutChatInput = {
-    phoneNumber: string
+  export type UserCreateWithoutCreatedChatsInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutChatInput = {
+  export type UserUncheckedCreateWithoutCreatedChatsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutChatInput = {
+  export type UserCreateOrConnectWithoutCreatedChatsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutChatInput, UserUncheckedCreateWithoutChatInput>
+    create: XOR<UserCreateWithoutCreatedChatsInput, UserUncheckedCreateWithoutCreatedChatsInput>
   }
 
   export type ChatMemberCreateWithoutChatInput = {
     joinedAt?: Date | string
     role?: $Enums.ChatMemberRole
     lastReadAt?: Date | string | null
-    user: UserCreateNestedOneWithoutChatsInput
+    user: UserCreateNestedOneWithoutChatMembersInput
   }
 
   export type ChatMemberUncheckedCreateWithoutChatInput = {
@@ -23800,7 +23448,7 @@ export namespace Prisma {
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replyTo?: MessageCreateNestedOneWithoutRepliesInput
     replies?: MessageCreateNestedManyWithoutReplyToInput
     readBy?: ReadReceiptCreateNestedManyWithoutMessageInput
@@ -23861,70 +23509,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutChatInput = {
-    update: XOR<UserUpdateWithoutChatInput, UserUncheckedUpdateWithoutChatInput>
-    create: XOR<UserCreateWithoutChatInput, UserUncheckedCreateWithoutChatInput>
+  export type UserUpsertWithoutCreatedChatsInput = {
+    update: XOR<UserUpdateWithoutCreatedChatsInput, UserUncheckedUpdateWithoutCreatedChatsInput>
+    create: XOR<UserCreateWithoutCreatedChatsInput, UserUncheckedCreateWithoutCreatedChatsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutChatInput = {
+  export type UserUpdateToOneWithWhereWithoutCreatedChatsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutChatInput, UserUncheckedUpdateWithoutChatInput>
+    data: XOR<UserUpdateWithoutCreatedChatsInput, UserUncheckedUpdateWithoutCreatedChatsInput>
   }
 
-  export type UserUpdateWithoutChatInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutCreatedChatsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutChatInput = {
+  export type UserUncheckedUpdateWithoutCreatedChatsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatMemberUpsertWithWhereUniqueWithoutChatInput = {
@@ -23982,7 +23622,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     picture?: string | null
-    creator?: UserCreateNestedOneWithoutChatInput
+    creator?: UserCreateNestedOneWithoutCreatedChatsInput
     messages?: MessageCreateNestedManyWithoutChatInput
     calls?: CallCreateNestedManyWithoutChatInput
   }
@@ -24005,64 +23645,56 @@ export namespace Prisma {
     create: XOR<ChatCreateWithoutMembersInput, ChatUncheckedCreateWithoutMembersInput>
   }
 
-  export type UserCreateWithoutChatsInput = {
-    phoneNumber: string
+  export type UserCreateWithoutChatMembersInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutChatsInput = {
+  export type UserUncheckedCreateWithoutChatMembersInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutChatsInput = {
+  export type UserCreateOrConnectWithoutChatMembersInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
+    create: XOR<UserCreateWithoutChatMembersInput, UserUncheckedCreateWithoutChatMembersInput>
   }
 
   export type ChatUpsertWithoutMembersInput = {
@@ -24083,7 +23715,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     picture?: NullableStringFieldUpdateOperationsInput | string | null
-    creator?: UserUpdateOneWithoutChatNestedInput
+    creator?: UserUpdateOneWithoutCreatedChatsNestedInput
     messages?: MessageUpdateManyWithoutChatNestedInput
     calls?: CallUpdateManyWithoutChatNestedInput
   }
@@ -24101,70 +23733,62 @@ export namespace Prisma {
     calls?: CallUncheckedUpdateManyWithoutChatNestedInput
   }
 
-  export type UserUpsertWithoutChatsInput = {
-    update: XOR<UserUpdateWithoutChatsInput, UserUncheckedUpdateWithoutChatsInput>
-    create: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
+  export type UserUpsertWithoutChatMembersInput = {
+    update: XOR<UserUpdateWithoutChatMembersInput, UserUncheckedUpdateWithoutChatMembersInput>
+    create: XOR<UserCreateWithoutChatMembersInput, UserUncheckedCreateWithoutChatMembersInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutChatsInput = {
+  export type UserUpdateToOneWithWhereWithoutChatMembersInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutChatsInput, UserUncheckedUpdateWithoutChatsInput>
+    data: XOR<UserUpdateWithoutChatMembersInput, UserUncheckedUpdateWithoutChatMembersInput>
   }
 
-  export type UserUpdateWithoutChatsInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutChatMembersInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutChatsInput = {
+  export type UserUncheckedUpdateWithoutChatMembersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatCreateWithoutMessagesInput = {
@@ -24174,7 +23798,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     picture?: string | null
-    creator?: UserCreateNestedOneWithoutChatInput
+    creator?: UserCreateNestedOneWithoutCreatedChatsInput
     members?: ChatMemberCreateNestedManyWithoutChatInput
     calls?: CallCreateNestedManyWithoutChatInput
   }
@@ -24197,64 +23821,56 @@ export namespace Prisma {
     create: XOR<ChatCreateWithoutMessagesInput, ChatUncheckedCreateWithoutMessagesInput>
   }
 
-  export type UserCreateWithoutMessagesInput = {
-    phoneNumber: string
+  export type UserCreateWithoutSentMessagesInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutMessagesInput = {
+  export type UserUncheckedCreateWithoutSentMessagesInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutMessagesInput = {
+  export type UserCreateOrConnectWithoutSentMessagesInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
   }
 
   export type MessageCreateWithoutRepliesInput = {
@@ -24265,7 +23881,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: ChatCreateNestedOneWithoutMessagesInput
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replyTo?: MessageCreateNestedOneWithoutRepliesInput
     readBy?: ReadReceiptCreateNestedManyWithoutMessageInput
     reactions?: ReactionCreateNestedManyWithoutMessageInput
@@ -24299,7 +23915,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: ChatCreateNestedOneWithoutMessagesInput
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replies?: MessageCreateNestedManyWithoutReplyToInput
     readBy?: ReadReceiptCreateNestedManyWithoutMessageInput
     reactions?: ReactionCreateNestedManyWithoutMessageInput
@@ -24332,7 +23948,7 @@ export namespace Prisma {
 
   export type ReadReceiptCreateWithoutMessageInput = {
     readAt?: Date | string
-    user: UserCreateNestedOneWithoutReadReceiptInput
+    user: UserCreateNestedOneWithoutReadReceiptsInput
   }
 
   export type ReadReceiptUncheckedCreateWithoutMessageInput = {
@@ -24354,7 +23970,7 @@ export namespace Prisma {
   export type ReactionCreateWithoutMessageInput = {
     emoji: string
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutReactionInput
+    user: UserCreateNestedOneWithoutReactionsInput
   }
 
   export type ReactionUncheckedCreateWithoutMessageInput = {
@@ -24392,7 +24008,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     picture?: NullableStringFieldUpdateOperationsInput | string | null
-    creator?: UserUpdateOneWithoutChatNestedInput
+    creator?: UserUpdateOneWithoutCreatedChatsNestedInput
     members?: ChatMemberUpdateManyWithoutChatNestedInput
     calls?: CallUpdateManyWithoutChatNestedInput
   }
@@ -24410,70 +24026,62 @@ export namespace Prisma {
     calls?: CallUncheckedUpdateManyWithoutChatNestedInput
   }
 
-  export type UserUpsertWithoutMessagesInput = {
-    update: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
-    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+  export type UserUpsertWithoutSentMessagesInput = {
+    update: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
+    create: XOR<UserCreateWithoutSentMessagesInput, UserUncheckedCreateWithoutSentMessagesInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+  export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
+    data: XOR<UserUpdateWithoutSentMessagesInput, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
-  export type UserUpdateWithoutMessagesInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutSentMessagesInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutMessagesInput = {
+  export type UserUncheckedUpdateWithoutSentMessagesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithoutRepliesInput = {
@@ -24495,7 +24103,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     readBy?: ReadReceiptUpdateManyWithoutMessageNestedInput
     reactions?: ReactionUpdateManyWithoutMessageNestedInput
@@ -24572,7 +24180,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: ChatCreateNestedOneWithoutMessagesInput
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replyTo?: MessageCreateNestedOneWithoutRepliesInput
     replies?: MessageCreateNestedManyWithoutReplyToInput
     reactions?: ReactionCreateNestedManyWithoutMessageInput
@@ -24598,64 +24206,56 @@ export namespace Prisma {
     create: XOR<MessageCreateWithoutReadByInput, MessageUncheckedCreateWithoutReadByInput>
   }
 
-  export type UserCreateWithoutReadReceiptInput = {
-    phoneNumber: string
+  export type UserCreateWithoutReadReceiptsInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutReadReceiptInput = {
+  export type UserUncheckedCreateWithoutReadReceiptsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutReadReceiptInput = {
+  export type UserCreateOrConnectWithoutReadReceiptsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReadReceiptInput, UserUncheckedCreateWithoutReadReceiptInput>
+    create: XOR<UserCreateWithoutReadReceiptsInput, UserUncheckedCreateWithoutReadReceiptsInput>
   }
 
   export type MessageUpsertWithoutReadByInput = {
@@ -24677,7 +24277,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     replies?: MessageUpdateManyWithoutReplyToNestedInput
     reactions?: ReactionUpdateManyWithoutMessageNestedInput
@@ -24698,70 +24298,62 @@ export namespace Prisma {
     reactions?: ReactionUncheckedUpdateManyWithoutMessageNestedInput
   }
 
-  export type UserUpsertWithoutReadReceiptInput = {
-    update: XOR<UserUpdateWithoutReadReceiptInput, UserUncheckedUpdateWithoutReadReceiptInput>
-    create: XOR<UserCreateWithoutReadReceiptInput, UserUncheckedCreateWithoutReadReceiptInput>
+  export type UserUpsertWithoutReadReceiptsInput = {
+    update: XOR<UserUpdateWithoutReadReceiptsInput, UserUncheckedUpdateWithoutReadReceiptsInput>
+    create: XOR<UserCreateWithoutReadReceiptsInput, UserUncheckedCreateWithoutReadReceiptsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutReadReceiptInput = {
+  export type UserUpdateToOneWithWhereWithoutReadReceiptsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReadReceiptInput, UserUncheckedUpdateWithoutReadReceiptInput>
+    data: XOR<UserUpdateWithoutReadReceiptsInput, UserUncheckedUpdateWithoutReadReceiptsInput>
   }
 
-  export type UserUpdateWithoutReadReceiptInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutReadReceiptsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutReadReceiptInput = {
+  export type UserUncheckedUpdateWithoutReadReceiptsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageCreateWithoutReactionsInput = {
@@ -24772,7 +24364,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: ChatCreateNestedOneWithoutMessagesInput
-    sender: UserCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutSentMessagesInput
     replyTo?: MessageCreateNestedOneWithoutRepliesInput
     replies?: MessageCreateNestedManyWithoutReplyToInput
     readBy?: ReadReceiptCreateNestedManyWithoutMessageInput
@@ -24798,64 +24390,56 @@ export namespace Prisma {
     create: XOR<MessageCreateWithoutReactionsInput, MessageUncheckedCreateWithoutReactionsInput>
   }
 
-  export type UserCreateWithoutReactionInput = {
-    phoneNumber: string
+  export type UserCreateWithoutReactionsInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutReactionInput = {
+  export type UserUncheckedCreateWithoutReactionsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutReactionInput = {
+  export type UserCreateOrConnectWithoutReactionsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReactionInput, UserUncheckedCreateWithoutReactionInput>
+    create: XOR<UserCreateWithoutReactionsInput, UserUncheckedCreateWithoutReactionsInput>
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -24877,7 +24461,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     replies?: MessageUpdateManyWithoutReplyToNestedInput
     readBy?: ReadReceiptUpdateManyWithoutMessageNestedInput
@@ -24898,70 +24482,62 @@ export namespace Prisma {
     readBy?: ReadReceiptUncheckedUpdateManyWithoutMessageNestedInput
   }
 
-  export type UserUpsertWithoutReactionInput = {
-    update: XOR<UserUpdateWithoutReactionInput, UserUncheckedUpdateWithoutReactionInput>
-    create: XOR<UserCreateWithoutReactionInput, UserUncheckedCreateWithoutReactionInput>
+  export type UserUpsertWithoutReactionsInput = {
+    update: XOR<UserUpdateWithoutReactionsInput, UserUncheckedUpdateWithoutReactionsInput>
+    create: XOR<UserCreateWithoutReactionsInput, UserUncheckedCreateWithoutReactionsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutReactionInput = {
+  export type UserUpdateToOneWithWhereWithoutReactionsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReactionInput, UserUncheckedUpdateWithoutReactionInput>
+    data: XOR<UserUpdateWithoutReactionsInput, UserUncheckedUpdateWithoutReactionsInput>
   }
 
-  export type UserUpdateWithoutReactionInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutReactionsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutReactionInput = {
+  export type UserUncheckedUpdateWithoutReactionsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatCreateWithoutCallsInput = {
@@ -24971,7 +24547,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     picture?: string | null
-    creator?: UserCreateNestedOneWithoutChatInput
+    creator?: UserCreateNestedOneWithoutCreatedChatsInput
     members?: ChatMemberCreateNestedManyWithoutChatInput
     messages?: MessageCreateNestedManyWithoutChatInput
   }
@@ -24995,58 +24571,50 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCallsInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCallsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCallsInput = {
@@ -25058,7 +24626,7 @@ export namespace Prisma {
     joinedAt?: Date | string
     leftAt?: Date | string | null
     status?: $Enums.CallParticipantStatus
-    user: UserCreateNestedOneWithoutCallParticipantInput
+    user: UserCreateNestedOneWithoutCallParticipantsInput
   }
 
   export type CallParticipantUncheckedCreateWithoutCallInput = {
@@ -25097,7 +24665,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     picture?: NullableStringFieldUpdateOperationsInput | string | null
-    creator?: UserUpdateOneWithoutChatNestedInput
+    creator?: UserUpdateOneWithoutCreatedChatsNestedInput
     members?: ChatMemberUpdateManyWithoutChatNestedInput
     messages?: MessageUpdateManyWithoutChatNestedInput
   }
@@ -25127,58 +24695,50 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCallsInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCallsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CallParticipantUpsertWithWhereUniqueWithoutCallInput = {
@@ -25221,64 +24781,56 @@ export namespace Prisma {
     create: XOR<CallCreateWithoutParticipantsInput, CallUncheckedCreateWithoutParticipantsInput>
   }
 
-  export type UserCreateWithoutCallParticipantInput = {
-    phoneNumber: string
+  export type UserCreateWithoutCallParticipantsInput = {
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutCallParticipantInput = {
+  export type UserUncheckedCreateWithoutCallParticipantsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutCallParticipantInput = {
+  export type UserCreateOrConnectWithoutCallParticipantsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutCallParticipantInput, UserUncheckedCreateWithoutCallParticipantInput>
+    create: XOR<UserCreateWithoutCallParticipantsInput, UserUncheckedCreateWithoutCallParticipantsInput>
   }
 
   export type CallUpsertWithoutParticipantsInput = {
@@ -25311,125 +24863,109 @@ export namespace Prisma {
     endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type UserUpsertWithoutCallParticipantInput = {
-    update: XOR<UserUpdateWithoutCallParticipantInput, UserUncheckedUpdateWithoutCallParticipantInput>
-    create: XOR<UserCreateWithoutCallParticipantInput, UserUncheckedCreateWithoutCallParticipantInput>
+  export type UserUpsertWithoutCallParticipantsInput = {
+    update: XOR<UserUpdateWithoutCallParticipantsInput, UserUncheckedUpdateWithoutCallParticipantsInput>
+    create: XOR<UserCreateWithoutCallParticipantsInput, UserUncheckedCreateWithoutCallParticipantsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutCallParticipantInput = {
+  export type UserUpdateToOneWithWhereWithoutCallParticipantsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCallParticipantInput, UserUncheckedUpdateWithoutCallParticipantInput>
+    data: XOR<UserUpdateWithoutCallParticipantsInput, UserUncheckedUpdateWithoutCallParticipantsInput>
   }
 
-  export type UserUpdateWithoutCallParticipantInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+  export type UserUpdateWithoutCallParticipantsInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutCallParticipantInput = {
+  export type UserUncheckedUpdateWithoutCallParticipantsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutStatusUpdatesInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusViews?: StatusViewCreateNestedManyWithoutViewerInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStatusUpdatesInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusViews?: StatusViewUncheckedCreateNestedManyWithoutViewerInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStatusUpdatesInput = {
@@ -25470,58 +25006,50 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutStatusUpdatesInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStatusUpdatesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusViews?: StatusViewUncheckedUpdateManyWithoutViewerNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StatusViewUpsertWithWhereUniqueWithoutStatusInput = {
@@ -25565,58 +25093,50 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutStatusViewsInput = {
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     contacts?: ContactCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberCreateNestedManyWithoutUserInput
-    messages?: MessageCreateNestedManyWithoutSenderInput
+    createdChats?: ChatCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
     calls?: CallCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateCreateNestedManyWithoutUserInput
-    Contact?: ContactCreateNestedManyWithoutContactInput
-    Chat?: ChatCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptCreateNestedManyWithoutUserInput
-    Reaction?: ReactionCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStatusViewsInput = {
     id?: number
-    phoneNumber: string
+    name?: string | null
     email?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    bio?: string | null
+    phone?: string | null
+    password?: string | null
     profilePicture?: string | null
-    status?: string
     lastSeen?: Date | string | null
-    isOnline?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
     blockedUsers?: BlockedUserUncheckedCreateNestedManyWithoutUserInput
     blockedBy?: BlockedUserUncheckedCreateNestedManyWithoutBlockedUserInput
-    chats?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
-    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    createdChats?: ChatUncheckedCreateNestedManyWithoutCreatorInput
+    chatMembers?: ChatMemberUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    readReceipts?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
     calls?: CallUncheckedCreateNestedManyWithoutCallerInput
+    callParticipants?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
     statusUpdates?: StatusUpdateUncheckedCreateNestedManyWithoutUserInput
-    Contact?: ContactUncheckedCreateNestedManyWithoutContactInput
-    Chat?: ChatUncheckedCreateNestedManyWithoutCreatorInput
-    ReadReceipt?: ReadReceiptUncheckedCreateNestedManyWithoutUserInput
-    Reaction?: ReactionUncheckedCreateNestedManyWithoutUserInput
-    CallParticipant?: CallParticipantUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStatusViewsInput = {
@@ -25666,58 +25186,50 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutStatusViewsInput = {
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     contacts?: ContactUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUpdateManyWithoutUserNestedInput
-    messages?: MessageUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
     calls?: CallUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUpdateManyWithoutUserNestedInput
-    Contact?: ContactUpdateManyWithoutContactNestedInput
-    Chat?: ChatUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStatusViewsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isOnline?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
     blockedUsers?: BlockedUserUncheckedUpdateManyWithoutUserNestedInput
     blockedBy?: BlockedUserUncheckedUpdateManyWithoutBlockedUserNestedInput
-    chats?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdChats?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
+    chatMembers?: ChatMemberUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    readReceipts?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
     calls?: CallUncheckedUpdateManyWithoutCallerNestedInput
+    callParticipants?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
     statusUpdates?: StatusUpdateUncheckedUpdateManyWithoutUserNestedInput
-    Contact?: ContactUncheckedUpdateManyWithoutContactNestedInput
-    Chat?: ChatUncheckedUpdateManyWithoutCreatorNestedInput
-    ReadReceipt?: ReadReceiptUncheckedUpdateManyWithoutUserNestedInput
-    Reaction?: ReactionUncheckedUpdateManyWithoutUserNestedInput
-    CallParticipant?: CallParticipantUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -25750,6 +25262,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ChatCreateManyCreatorInput = {
+    id?: number
+    name?: string | null
+    description?: string | null
+    isGroup?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    picture?: string | null
+  }
+
   export type ChatMemberCreateManyUserInput = {
     id?: number
     chatId: number
@@ -25770,6 +25292,19 @@ export namespace Prisma {
     replyToId?: number | null
   }
 
+  export type ReadReceiptCreateManyUserInput = {
+    id?: number
+    messageId: number
+    readAt?: Date | string
+  }
+
+  export type ReactionCreateManyUserInput = {
+    id?: number
+    messageId: number
+    emoji: string
+    createdAt?: Date | string
+  }
+
   export type CallCreateManyCallerInput = {
     id?: number
     chatId: number
@@ -25777,6 +25312,14 @@ export namespace Prisma {
     status?: $Enums.CallStatus
     startedAt?: Date | string
     endedAt?: Date | string | null
+  }
+
+  export type CallParticipantCreateManyUserInput = {
+    id?: number
+    callId: number
+    joinedAt?: Date | string
+    leftAt?: Date | string | null
+    status?: $Enums.CallParticipantStatus
   }
 
   export type StatusUpdateCreateManyUserInput = {
@@ -25792,45 +25335,6 @@ export namespace Prisma {
     id?: number
     statusId: number
     viewedAt?: Date | string
-  }
-
-  export type ContactCreateManyContactInput = {
-    id?: number
-    userId: number
-    name?: string | null
-    isFavorite?: boolean
-    createdAt?: Date | string
-  }
-
-  export type ChatCreateManyCreatorInput = {
-    id?: number
-    name?: string | null
-    description?: string | null
-    isGroup?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    picture?: string | null
-  }
-
-  export type ReadReceiptCreateManyUserInput = {
-    id?: number
-    messageId: number
-    readAt?: Date | string
-  }
-
-  export type ReactionCreateManyUserInput = {
-    id?: number
-    messageId: number
-    emoji: string
-    createdAt?: Date | string
-  }
-
-  export type CallParticipantCreateManyUserInput = {
-    id?: number
-    callId: number
-    joinedAt?: Date | string
-    leftAt?: Date | string | null
-    status?: $Enums.CallParticipantStatus
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -25864,10 +25368,10 @@ export namespace Prisma {
   }
 
   export type ContactUpdateWithoutUserInput = {
+    contactId?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     isFavorite?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    contact?: UserUpdateOneRequiredWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutUserInput = {
@@ -25888,7 +25392,7 @@ export namespace Prisma {
 
   export type BlockedUserUpdateWithoutUserInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    blockedUser?: UserUpdateOneRequiredWithoutBlockedByNestedInput
+    blockedUser?: UserUpdateOneWithoutBlockedByNestedInput
   }
 
   export type BlockedUserUncheckedUpdateWithoutUserInput = {
@@ -25905,7 +25409,7 @@ export namespace Prisma {
 
   export type BlockedUserUpdateWithoutBlockedUserInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutBlockedUsersNestedInput
+    user?: UserUpdateOneWithoutBlockedUsersNestedInput
   }
 
   export type BlockedUserUncheckedUpdateWithoutBlockedUserInput = {
@@ -25918,6 +25422,41 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChatUpdateWithoutCreatorInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isGroup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ChatMemberUpdateManyWithoutChatNestedInput
+    messages?: MessageUpdateManyWithoutChatNestedInput
+    calls?: CallUpdateManyWithoutChatNestedInput
+  }
+
+  export type ChatUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isGroup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ChatMemberUncheckedUpdateManyWithoutChatNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutChatNestedInput
+    calls?: CallUncheckedUpdateManyWithoutChatNestedInput
+  }
+
+  export type ChatUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isGroup?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    picture?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMemberUpdateWithoutUserInput = {
@@ -25984,6 +25523,43 @@ export namespace Prisma {
     replyToId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type ReadReceiptUpdateWithoutUserInput = {
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: MessageUpdateOneRequiredWithoutReadByNestedInput
+  }
+
+  export type ReadReceiptUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReadReceiptUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
+    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReactionUpdateWithoutUserInput = {
+    emoji?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: MessageUpdateOneRequiredWithoutReactionsNestedInput
+  }
+
+  export type ReactionUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
+    emoji?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReactionUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
+    emoji?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CallUpdateWithoutCallerInput = {
     type?: EnumCallTypeFieldUpdateOperationsInput | $Enums.CallType
     status?: EnumCallStatusFieldUpdateOperationsInput | $Enums.CallStatus
@@ -26010,6 +25586,29 @@ export namespace Prisma {
     status?: EnumCallStatusFieldUpdateOperationsInput | $Enums.CallStatus
     startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CallParticipantUpdateWithoutUserInput = {
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
+    call?: CallUpdateOneRequiredWithoutParticipantsNestedInput
+  }
+
+  export type CallParticipantUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    callId?: IntFieldUpdateOperationsInput | number
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
+  }
+
+  export type CallParticipantUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    callId?: IntFieldUpdateOperationsInput | number
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
   }
 
   export type StatusUpdateUpdateWithoutUserInput = {
@@ -26057,124 +25656,6 @@ export namespace Prisma {
     viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ContactUpdateWithoutContactInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    isFavorite?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutContactsNestedInput
-  }
-
-  export type ContactUncheckedUpdateWithoutContactInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    isFavorite?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ContactUncheckedUpdateManyWithoutContactInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    isFavorite?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ChatUpdateWithoutCreatorInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    isGroup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    picture?: NullableStringFieldUpdateOperationsInput | string | null
-    members?: ChatMemberUpdateManyWithoutChatNestedInput
-    messages?: MessageUpdateManyWithoutChatNestedInput
-    calls?: CallUpdateManyWithoutChatNestedInput
-  }
-
-  export type ChatUncheckedUpdateWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    isGroup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    picture?: NullableStringFieldUpdateOperationsInput | string | null
-    members?: ChatMemberUncheckedUpdateManyWithoutChatNestedInput
-    messages?: MessageUncheckedUpdateManyWithoutChatNestedInput
-    calls?: CallUncheckedUpdateManyWithoutChatNestedInput
-  }
-
-  export type ChatUncheckedUpdateManyWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    isGroup?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    picture?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ReadReceiptUpdateWithoutUserInput = {
-    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: MessageUpdateOneRequiredWithoutReadByNestedInput
-  }
-
-  export type ReadReceiptUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    messageId?: IntFieldUpdateOperationsInput | number
-    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReadReceiptUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    messageId?: IntFieldUpdateOperationsInput | number
-    readAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReactionUpdateWithoutUserInput = {
-    emoji?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: MessageUpdateOneRequiredWithoutReactionsNestedInput
-  }
-
-  export type ReactionUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    messageId?: IntFieldUpdateOperationsInput | number
-    emoji?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReactionUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    messageId?: IntFieldUpdateOperationsInput | number
-    emoji?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CallParticipantUpdateWithoutUserInput = {
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
-    call?: CallUpdateOneRequiredWithoutParticipantsNestedInput
-  }
-
-  export type CallParticipantUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    callId?: IntFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
-  }
-
-  export type CallParticipantUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    callId?: IntFieldUpdateOperationsInput | number
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
-  }
-
   export type ChatMemberCreateManyChatInput = {
     id?: number
     userId: number
@@ -26208,7 +25689,7 @@ export namespace Prisma {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: EnumChatMemberRoleFieldUpdateOperationsInput | $Enums.ChatMemberRole
     lastReadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: UserUpdateOneRequiredWithoutChatsNestedInput
+    user?: UserUpdateOneRequiredWithoutChatMembersNestedInput
   }
 
   export type ChatMemberUncheckedUpdateWithoutChatInput = {
@@ -26234,7 +25715,7 @@ export namespace Prisma {
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     replies?: MessageUpdateManyWithoutReplyToNestedInput
     readBy?: ReadReceiptUpdateManyWithoutMessageNestedInput
@@ -26329,7 +25810,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: ChatUpdateOneRequiredWithoutMessagesNestedInput
-    sender?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentMessagesNestedInput
     replies?: MessageUpdateManyWithoutReplyToNestedInput
     readBy?: ReadReceiptUpdateManyWithoutMessageNestedInput
     reactions?: ReactionUpdateManyWithoutMessageNestedInput
@@ -26364,7 +25845,7 @@ export namespace Prisma {
 
   export type ReadReceiptUpdateWithoutMessageInput = {
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutReadReceiptNestedInput
+    user?: UserUpdateOneRequiredWithoutReadReceiptsNestedInput
   }
 
   export type ReadReceiptUncheckedUpdateWithoutMessageInput = {
@@ -26382,7 +25863,7 @@ export namespace Prisma {
   export type ReactionUpdateWithoutMessageInput = {
     emoji?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutReactionNestedInput
+    user?: UserUpdateOneRequiredWithoutReactionsNestedInput
   }
 
   export type ReactionUncheckedUpdateWithoutMessageInput = {
@@ -26411,7 +25892,7 @@ export namespace Prisma {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     leftAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumCallParticipantStatusFieldUpdateOperationsInput | $Enums.CallParticipantStatus
-    user?: UserUpdateOneRequiredWithoutCallParticipantNestedInput
+    user?: UserUpdateOneRequiredWithoutCallParticipantsNestedInput
   }
 
   export type CallParticipantUncheckedUpdateWithoutCallInput = {
