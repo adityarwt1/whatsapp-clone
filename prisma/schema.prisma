@@ -35,39 +35,7 @@ enum CallParticipantStatus {
   REJECTED
 }
 
-model User {
-  id             Int       @id @default(autoincrement())
-  phoneNumber    String    @unique
-  email          String?   @unique
-  firstName      String?
-  lastName       String?
-  bio            String?
-  profilePicture String?
-  status         String    @default("Hey there! I am using WhatsApp")
-  lastSeen       DateTime?
-  isOnline       Boolean   @default(false)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-
-  // Relationships
-  sessions        Session[]
-  contacts        Contact[]         @relation("UserContacts")
-  blockedUsers    BlockedUser[]     @relation("UserBlocking")
-  blockedBy       BlockedUser[]     @relation("UserBlocked")
-  chats           ChatMember[]
-  messages        Message[]
-  calls           Call[]
-  statusUpdates   StatusUpdate[]
-  statusViews     StatusView[]
-  Contact         Contact[]
-  Chat            Chat[]
-  ReadReceipt     ReadReceipt[]
-  Reaction        Reaction[]
-  CallParticipant CallParticipant[]
-
-  @@index([phoneNumber])
-  @@index([isOnline])
-}
+  
 
 model Session {
   id         String   @id @default(cuid())
